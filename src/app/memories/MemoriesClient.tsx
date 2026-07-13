@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '@/components/ui/Navigation';
+import WordTypewriter from '@/components/ui/WordTypewriter';
 import { getAssetPath } from '@/lib/basePath';
 
 export interface MemoryItem {
@@ -236,43 +237,25 @@ export default function MemoriesClient() {
                     </div>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text mb-2 group-hover:text-sukuun-rose-deep transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text mb-3 group-hover:text-sukuun-rose-deep transition-colors">
                     {mem.title}
                   </h3>
 
-                  <div className="space-y-2 mb-4 font-[family-name:var(--font-crimson)] text-base text-sukuun-text">
-                    {mem.story.split('\n\n').map((line, idx) => (
-                      <motion.p
-                        key={idx}
-                        initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
-                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                        transition={{
-                          duration: 0.6,
-                          delay: idx * 0.35, // Staggered line-by-line reveal
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                      >
-                        {line}
-                      </motion.p>
-                    ))}
-                  </div>
-
+                  {/* 1. PHOTO ON TOP IN CARD */}
                   {mem.photos && mem.photos.length > 0 && (
-                    <div className="flex gap-2 overflow-hidden rounded-2xl">
-                      {mem.photos.slice(0, 3).map((photoSrc, idx) => (
-                        <div
-                          key={idx}
-                          className="max-w-[200px] h-32 rounded-xl overflow-hidden glass flex-shrink-0"
-                        >
-                          <img
-                            src={getAssetPath(photoSrc)}
-                            alt={mem.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                      ))}
+                    <div className="my-3 rounded-2xl overflow-hidden glass shadow-soft max-w-xs border border-sukuun-rose/30">
+                      <img
+                        src={getAssetPath(mem.photos[0])}
+                        alt={mem.title}
+                        className="w-full h-auto object-cover max-h-72 group-hover:scale-102 transition-transform duration-500"
+                      />
                     </div>
                   )}
+
+                  {/* 2. TEXT AT BOTTOM */}
+                  <p className="text-sm font-[family-name:var(--font-crimson)] text-sukuun-text leading-relaxed font-medium">
+                    {mem.story}
+                  </p>
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -280,7 +263,7 @@ export default function MemoriesClient() {
         )}
       </div>
 
-      {/* Memory Detail Modal */}
+      {/* Memory Detail Modal with Real Live Word-by-Word Typewriter */}
       <AnimatePresence>
         {selectedMemory && (
           <motion.div
@@ -288,72 +271,31 @@ export default function MemoriesClient() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedMemory(null)}
-            className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
           >
             <motion.div
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-lg w-full max-h-[85vh] glass-strong rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-8 overflow-y-auto"
+              className="relative max-w-lg w-full max-h-[90vh] glass-strong rounded-3xl overflow-hidden shadow-2xl p-4 sm:p-6 overflow-y-auto"
             >
               <button
                 onClick={() => setSelectedMemory(null)}
-                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-sukuun-gray-light text-sukuun-text flex items-center justify-center hover:bg-sukuun-gray transition-colors text-sm font-semibold"
+                className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition-colors text-sm font-semibold"
               >
                 ✕
               </button>
 
-              <div className="flex items-center gap-2 mb-3">
-                <span
-                  className={`text-xs font-semibold px-3 py-1 rounded-full border ${
-                    moodBadgeStyle[selectedMemory.mood]
-                  }`}
-                >
-                  {moodEmoji[selectedMemory.mood]} {selectedMemory.chapter}
-                </span>
-                <span className="text-xs text-sukuun-text-light">
-                  {selectedMemory.date}
-                </span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text mb-4">
-                {selectedMemory.title}
-              </h2>
-
-              <div className="space-y-3 font-[family-name:var(--font-crimson)] text-base text-sukuun-text leading-relaxed mb-6">
-                {selectedMemory.story.split('\n\n').map((line, idx) => (
-                  <motion.p
-                    key={idx}
-                    initial={{ opacity: 0, y: 12, filter: 'blur(3px)' }}
-                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    transition={{
-                      duration: 0.6,
-                      delay: idx * 0.35,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                  >
-                    {line}
-                  </motion.p>
-                ))}
-              </div>
-
-              {selectedMemory.photos && selectedMemory.photos.length > 0 && (
-                <div className="my-4 rounded-2xl overflow-hidden glass shadow-soft">
-                  <img
-                    src={getAssetPath(selectedMemory.photos[0])}
-                    alt={selectedMemory.title}
-                    className="w-full h-auto object-cover max-h-80"
-                  />
-                </div>
-              )}
-
-              {selectedMemory.location && (
-                <div className="text-xs text-sukuun-text-light pt-4 border-t border-sukuun-gray/40 flex items-center justify-between">
-                  <span>📍 {selectedMemory.location}</span>
-                  <span className="italic">Preserved for Myra ji ♡</span>
-                </div>
-              )}
+              <WordTypewriter
+                key={selectedMemory.id}
+                title={selectedMemory.title}
+                date={selectedMemory.date}
+                chapter={selectedMemory.chapter}
+                imageSrc={selectedMemory.photos?.[0]}
+                text={selectedMemory.story}
+                speed={40}
+              />
             </motion.div>
           </motion.div>
         )}

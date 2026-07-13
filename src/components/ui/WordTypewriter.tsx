@@ -1,0 +1,104 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { getAssetPath } from '@/lib/basePath';
+
+interface WordTypewriterProps {
+  text: string;
+  imageSrc?: string;
+  speed?: number; // ms per character
+  title?: string;
+  date?: string;
+  chapter?: string;
+}
+
+export default function WordTypewriter({
+  text,
+  imageSrc,
+  speed = 40,
+  title,
+  date,
+  chapter,
+}: WordTypewriterProps) {
+  const [displayedText, setDisplayedText] = useState('');
+  const [isTyping, setIsTyping] = useState(true);
+
+  useEffect(() => {
+    setDisplayedText('');
+    setIsTyping(true);
+    let index = 0;
+
+    const timer = setInterval(() => {
+      if (index < text.length) {
+        setDisplayedText((prev) => prev + text.charAt(index));
+        index++;
+      } else {
+        setIsTyping(false);
+        clearInterval(timer);
+      }
+    }, speed);
+
+    return () => clearInterval(timer);
+  }, [text, speed]);
+
+  return (
+    <div className="glass-strong rounded-3xl p-6 sm:p-8 shadow-soft relative overflow-hidden border border-sukuun-rose/30 my-4">
+      {/* Ambient background glows */}
+      <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-sukuun-pink/30 blur-2xl" />
+      <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full bg-sukuun-rose/30 blur-2xl" />
+
+      {/* Header Info */}
+      {(title || date || chapter) && (
+        <div className="mb-4 border-b border-sukuun-rose/30 pb-3">
+          {chapter && (
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-sukuun-rose-deep bg-sukuun-rose/30 px-3 py-1 rounded-full">
+              {chapter}
+            </span>
+          )}
+          {title && (
+            <h3 className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text mt-2">
+              {title}
+            </h3>
+          )}
+          {date && (
+            <p className="text-xs text-sukuun-text-light mt-1 font-medium">{date}</p>
+          )}
+        </div>
+      )}
+
+      {/* 1. PHOTO ON TOP */}
+      {imageSrc && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="mb-6 rounded-2xl overflow-hidden glass shadow-soft max-w-xs mx-auto border border-sukuun-rose/30"
+        >
+          <img
+            src={getAssetPath(imageSrc)}
+            alt={title || 'Memory Image'}
+            className="w-full h-auto object-cover max-h-80"
+          />
+        </motion.div>
+      )}
+
+      {/* 2. REAL WORD-BY-WORD / CHAR-BY-CHAR TYPEWRITER TEXT ON BOTTOM */}
+      <div className="min-h-[80px] font-[family-name:var(--font-crimson)] text-lg sm:text-xl text-sukuun-text leading-relaxed whitespace-pre-line">
+        <span>{displayedText}</span>
+        {isTyping && (
+          <motion.span
+            animate={{ opacity: [1, 0, 1] }}
+            transition={{ duration: 0.8, repeat: Infinity }}
+            className="inline-block w-2 h-5 bg-sukuun-rose-deep ml-1 font-bold"
+          />
+        )}
+      </div>
+
+      {/* Footer Signature */}
+      <div className="mt-6 text-right text-sukuun-rose-deep text-xs font-semibold italic">
+        Preserved for Myra ji ♡
+      </div>
+    </div>
+  );
+}
