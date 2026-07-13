@@ -1,0 +1,9 @@
+[
+  {
+    "id": "beginning",
+    "title": "Beginning",
+    "description": "Where it all started",
+    "order": 1,
+    "unlocked": true
+  }
+]

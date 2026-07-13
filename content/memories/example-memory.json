@@ -1,0 +1,16 @@
+{
+  "id": "example-memory-001",
+  "type": "photo",
+  "title": "Your First Memory",
+  "description": "A wonderful memory to cherish forever",
+  "date": "2026-07-13",
+  "chapter": "Beginning",
+  "mood": "happy",
+  "tags": ["special", "first"],
+  "photos": ["/images/your-photo.jpg"],
+  "story": "This is an example memory. Replace this with your own story.",
+  "animation": "fadeIn",
+  "importance": "high",
+  "hidden": false,
+  "unlocked": true
+}

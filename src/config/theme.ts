@@ -1,0 +1,12 @@
+import { type Theme } from '@/types/config';
+
+export const themeConfig: Theme = {
+  name: 'soft',
+  colors: {
+    primary: '#2D2D2D',
+    secondary: '#5A5A5A',
+    background: '#FBF8F3',
+    text: '#2D2D2D',
+    accent: '#F0D9E8',
+  },
+};

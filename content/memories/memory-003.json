@@ -1,0 +1,49 @@
+{
+  "id": "memory-003",
+  "type": "chat",
+  "title": "First Conversation",
+  "description": "Our first exchange",
+  "date": "2026-03-15",
+  "chapter": "Beginning",
+  "mood": "hopeful",
+  "tags": ["first", "chat", "conversation"],
+  "messages": [
+    {
+      "sender": "You",
+      "message": "Hi there! How are you?",
+      "timestamp": "2026-03-15T14:22:00Z"
+    },
+    {
+      "sender": "Them",
+      "message": "I'm good! How about you?",
+      "timestamp": "2026-03-15T14:23:00Z"
+    },
+    {
+      "sender": "You",
+      "message": "Great! I love this time of day.",
+      "timestamp": "2026-03-15T14:24:00Z"
+    },
+    {
+      "sender": "Them",
+      "message": "Me too. Something about the light...",
+      "timestamp": "2026-03-15T14:25:00Z"
+    },
+    {
+      "sender": "You",
+      "message": "Exactly ❤️",
+      "reaction": "❤️",
+      "timestamp": "2026-03-15T14:26:00Z"
+    }
+  ],
+  "participantName": "Someone Special",
+  "animation": "slideUp",
+  "backgroundMusic": "soft-chime.mp3",
+  "visibility": "private",
+  "importance": "medium",
+  "hidden": false,
+  "unlocked": true,
+  "relatedMemories": ["memory-001", "memory-002"],
+  "recreated": true,
+  "createdAt": "2026-03-15T14:22:00Z",
+  "updatedAt": "2026-03-15T14:22:00Z"
+}

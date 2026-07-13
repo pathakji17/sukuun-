@@ -1,0 +1,22 @@
+{
+  "id": "memory-002",
+  "type": "story",
+  "title": "The Beginning",
+  "description": "How it all started",
+  "date": "2026-03-15",
+  "chapter": "Beginning",
+  "mood": "romantic",
+  "tags": ["beginning", "story", "love"],
+  "story": "Every story has a beginning, and ours started with a simple hello. There was nothing extraordinary about that moment, except that it changed everything. It was the kind of meeting where you don't realize in the moment that you're meeting someone who will redefine what home means to you.",
+  "animation": "wordReveal",
+  "backgroundMusic": "ambient-strings.mp3",
+  "visibility": "private",
+  "importance": "high",
+  "hidden": false,
+  "unlocked": true,
+  "relatedMemories": ["memory-001"],
+  "excerpt": "Every story has a beginning, and ours started with a simple hello.",
+  "wordCount": 47,
+  "createdAt": "2026-03-15T10:00:00Z",
+  "updatedAt": "2026-03-15T10:00:00Z"
+}

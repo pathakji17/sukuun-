@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   SUKUUN DESIGN SYSTEM — Soft, Romantic, Immersive
+   ============================================================================ */
+
+@theme inline {
+  /* Sukuun Color Palette */
+  --color-sukuun-cream: #FBF8F3;
+  --color-sukuun-ivory: #FFFEF9;
+  --color-sukuun-white: #FFFFFF;
+  --color-sukuun-beige: #F5E6D3;
+  --color-sukuun-rose: #F5E0E0;
+  --color-sukuun-pink: #F0D9E8;
+  --color-sukuun-lavender: #E8DFF0;
+  --color-sukuun-blue: #D9E8F0;
+  --color-sukuun-gray-light: #EFEFEF;
+  --color-sukuun-gray: #E0E0E0;
+  --color-sukuun-gray-dark: #8A8A8A;
+  --color-sukuun-text: #2D2D2D;
+  --color-sukuun-text-light: #5A5A5A;
+  --color-sukuun-rose-deep: #E8B4B8;
+  --color-sukuun-pink-deep: #D4A5C4;
+  --color-sukuun-lavender-deep: #C4B5D4;
+  --color-sukuun-period-red: #E07A7A;
+  --color-sukuun-fertile-green: #A8D5BA;
+  --color-sukuun-ovulation-blue: #7AB8E0;
+
+  /* Semantic tokens */
+  --color-background: var(--color-sukuun-cream);
+  --color-foreground: var(--color-sukuun-text);
+
+  /* Fonts */
+  --font-serif: 'Crimson Text', 'Lora', 'Georgia', serif;
+  --font-sans: 'Inter', var(--font-geist-sans), 'Segoe UI', 'Roboto', sans-serif;
+  --font-mono: var(--font-geist-mono);
+
+  /* Shadows */
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-softer: 0 2px 12px rgba(0, 0, 0, 0.04);
+  --shadow-glow-rose: 0 4px 30px rgba(245, 224, 224, 0.5);
+  --shadow-glow-pink: 0 4px 30px rgba(240, 217, 232, 0.5);
+  --shadow-glow-lavender: 0 4px 30px rgba(232, 223, 240, 0.5);
+
+  /* Animations */
+  --animate-fade-in: fadeIn 0.8s ease-out forwards;
+  --animate-slide-up: slideUp 0.8s ease-out forwards;
+  --animate-slide-down: slideDown 0.6s ease-out forwards;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-soft: pulseSoft 3s ease-in-out infinite;
+  --animate-shimmer: shimmer 3s ease-in-out infinite;
+  --animate-breathe: breathe 4s ease-in-out infinite;
+  --animate-spin-slow: spin 20s linear infinite;
+}
+
+/* ============================================================================
+   BASE STYLES
+   ============================================================================ */
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--color-sukuun-cream);
+  color: var(--color-sukuun-text);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-sukuun-pink);
+  color: var(--color-sukuun-text);
+}
+
+/* ============================================================================
+   KEYFRAMES
+   ============================================================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(2deg); }
+  66% { transform: translateY(5px) rotate(-1deg); }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes petalFall {
+  0% {
+    opacity: 1;
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) translateX(80px) rotate(360deg);
+  }
+}
+
+@keyframes countPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* ============================================================================
+   GLASS MORPHISM UTILITIES
+   ============================================================================ */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================================================
+   GRADIENT BACKGROUNDS
+   ============================================================================ */
+
+.bg-gradient-sukuun {
+  background: linear-gradient(
+    135deg,
+    var(--color-sukuun-cream) 0%,
+    var(--color-sukuun-rose) 30%,
+    var(--color-sukuun-pink) 60%,
+    var(--color-sukuun-lavender) 100%
+  );
+}
+
+.bg-gradient-subtle {
+  background: linear-gradient(
+    180deg,
+    var(--color-sukuun-cream) 0%,
+    var(--color-sukuun-ivory) 50%,
+    var(--color-sukuun-beige) 100%
+  );
+}
+
+.bg-gradient-warm {
+  background: linear-gradient(
+    135deg,
+    var(--color-sukuun-rose) 0%,
+    var(--color-sukuun-pink) 50%,
+    var(--color-sukuun-lavender) 100%
+  );
+}
+
+/* ============================================================================
+   PETAL / DECORATIVE PARTICLES
+   ============================================================================ */
+
+.petal {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50% 0 50% 0;
+  animation: petalFall linear forwards;
+}
+
+/* ============================================================================
+   SCROLLBAR STYLING
+   ============================================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-sukuun-gray);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sukuun-gray-dark);
+}
+
+/* ============================================================================
+   RESPONSIVE HELPERS
+   ============================================================================ */
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}

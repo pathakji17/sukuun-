@@ -1,0 +1,616 @@
+SUKUUN - MEMORY PRESERVATION PLATFORM
+====================================
+
+.
+├── src/
+│   ├── modules/
+│   │   ├── memory/
+│   │   │   ├── components/
+│   │   │   │   ├── MemoryCard.tsx
+│   │   │   │   ├── MemoryForm.tsx
+│   │   │   │   ├── MemoryEditor.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── types/
+│   │   │   │   ├── memory.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks/
+│   │   │   │   ├── useMemory.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── utils/
+│   │   │   │   ├── memoryUtils.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── config/
+│   │   │   │   └── memoryConfig.ts
+│   │   │   ├── database/
+│   │   │   │   ├── schema.ts
+│   │   │   │   ├── queries.ts
+│   │   │   │   └── models.ts
+│   │   │   ├── api/
+│   │   │   │   ├── routes.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── tests/
+│   │   │   │   ├── unit/
+│   │   │   │   ├── integration/
+│   │   │   │   └── e2e/
+│   │   │   ├── env/
+│   │   │   │   ├── .env.local
+│   │   │   │   └── index.ts
+│   │   │   ├── constants/
+│   │   │   │   └── constants.ts
+│   │   │   └── styles/
+│   │   │       └── memory.module.css
+│   │   ├── timeline/
+│   │   │   ├── components/
+│   │   │   │   ├── Timeline.tsx
+│   │   │   │   ├── TimelineView.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── types/
+│   │   │   │   ├── timeline.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks/
+│   │   │   │   ├── useTimeline.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── utils/
+│   │   │   │   ├── timelineUtils.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── config/
+│   │   │   │   └── timelineConfig.ts
+│   │   │   ├── database/
+│   │   │   │   ├── schema.ts
+│   │   │   │   ├── queries.ts
+│   │   │   │   └── models.ts
+│   │   │   ├── api/
+│   │   │   │   ├── routes.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── tests/
+│   │   │   │   ├── unit/
+│   │   │   │   ├── integration/
+│   │   │   │   └── e2e/
+│   │   │   ├── env/
+│   │   │   ├── constants/
+│   │   │   └── styles/
+│   │   ├── gallery/
+│   │   │   ├── components/
+│   │   │   │   ├── Gallery.tsx
+│   │   │   │   ├── ImageGrid.tsx
+│   │   │   │   ├── ImageViewer.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── types/
+│   │   │   │   ├── gallery.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks/
+│   │   │   │   ├── useGallery.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── utils/
+│   │   │   │   ├── galleryUtils.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── config/
+│   │   │   │   ├── galleryConfig.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── database/
+│   │   │   │   ├── schema.ts
+│   │   │   │   ├── queries.ts
+│   │   │   │   └── models.ts
+│   │   │   ├── api/
+│   │   │   │   ├── routes.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── tests/
+│   │   │   │   ├── unit/
+│   │   │   │   ├── integration/
+│   │   │   │   └── e2e/
+│   │   │   ├── env/
+│   │   │   ├── constants/
+│   │   │   └── styles/
+│   │   ├── chat/
+│   │   │   ├── components/
+│   │   │   │   ├── ChatInterface.tsx
+│   │   │   │   ├── MessageList.tsx
+│   │   │   │   ├── MessageInput.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── types/
+│   │   │   │   ├── chat.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks/
+│   │   │   │   ├── useChat.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── utils/
+│   │   │   │   ├── chatUtils.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── config/
+│   │   │   │   └── chatConfig.ts
+│   │   │   ├── database/
+│   │   │   │   ├── schema.ts
+│   │   │   │   ├── queries.ts
+│   │   │   │   └── models.ts
+│   │   │   ├── api/
+│   │   │   │   ├── routes.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── tests/
+│   │   │   │   ├── unit/
+│   │   │   │   ├── integration/
+│   │   │   │   └── e2e/
+│   │   │   ├── env/
+│   │   │   ├── constants/
+│   │   │   └── styles/
+│   │   ├── story/
+│   │   │   ├── components/
+│   │   │   │   ├── StoryReader.tsx
+│   │   │   │   ├── ChapterNavigation.tsx
+│   │   │   │   ├── StoryEditor.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── types/
+│   │   │   │   ├── story.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks/
+│   │   │   │   ├── useStory.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── utils/
+│   │   │   │   ├── storyUtils.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── config/
+│   │   │   │   └── storyConfig.ts
+│   │   │   ├── database/
+│   │   │   │   ├── schema.ts
+│   │   │   │   ├── queries.ts
+│   │   │   │   └── models.ts
+│   │   │   ├── api/
+│   │   │   │   ├── routes.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── tests/
+│   │   │   │   ├── unit/
+│   │   │   │   ├── integration/
+│   │   │   │   └── e2e/
+│   │   │   ├── env/
+│   │   │   ├── constants/
+│   │   │   └── styles/
+│   │   ├── birthday/
+│   │   │   ├── components/
+│   │   │   │   ├── BirthdayCountdown.tsx
+│   │   │   │   ├── BirthdayCard.tsx
+│   │   │   │   ├── CelebrationView.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── types/
+│   │   │   │   ├── birthday.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks/
+│   │   │   │   ├── useBirthday.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── utils/
+│   │   │   │   ├── birthdayUtils.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── config/
+│   │   │   │   └── birthdayConfig.ts
+│   │   │   ├── database/
+│   │   │   │   ├── schema.ts
+│   │   │   │   ├── queries.ts
+│   │   │   │   └── models.ts
+│   │   │   ├── api/
+│   │   │   │   ├── routes.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── tests/
+│   │   │   │   ├── unit/
+│   │   │   │   ├── integration/
+│   │   │   │   └── e2e/
+│   │   │   ├── env/
+│   │   │   ├── constants/
+│   │   │   └── styles/
+│   │   ├── music/
+│   │   │   ├── components/
+│   │   │   │   ├── AudioPlayer.tsx
+│   │   │   │   ├── Playlist.tsx
+│   │   │   │   ├── MusicControls.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── types/
+│   │   │   │   ├── music.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks/
+│   │   │   │   ├── useMusic.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── utils/
+│   │   │   │   ├── musicUtils.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── config/
+│   │   │   │   ├── musicConfig.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── database/
+│   │   │   │   ├── schema.ts
+│   │   │   │   ├── queries.ts
+│   │   │   │   └── models.ts
+│   │   │   ├── api/
+│   │   │   │   ├── routes.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── tests/
+│   │   │   │   ├── unit/
+│   │   │   │   ├── integration/
+│   │   │   │   └── e2e/
+│   │   │   ├── env/
+│   │   │   ├── constants/
+│   │   │   └── styles/
+│   │   ├── video/
+│   │   │   ├── components/
+│   │   │   │   ├── VideoPlayer.tsx
+│   │   │   │   ├── VideoGallery.tsx
+│   │   │   │   ├── VideoUpload.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── types/
+│   │   │   │   ├── video.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks/
+│   │   │   │   ├── useVideo.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── utils/
+│   │   │   │   ├── videoUtils.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── config/
+│   │   │   │   └── videoConfig.ts
+│   │   │   ├── database/
+│   │   │   │   ├── schema.ts
+│   │   │   │   ├── queries.ts
+│   │   │   │   └── models.ts
+│   │   │   ├── api/
+│   │   │   │   ├── routes.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── tests/
+│   │   │   │   ├── unit/
+│   │   │   │   ├── integration/
+│   │   │   │   └── e2e/
+│   │   │   ├── env/
+│   │   │   ├── constants/
+│   │   │   └── styles/
+│   │   ├── animation/
+│   │   │   ├── utils/
+│   │   │   │   ├── animationHelpers.ts
+│   │   │   │   ├── motionConfig.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── components/
+│   │   │   │   ├── AnimatedWrapper.tsx
+│   │   │   │   ├── Reveal.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── config/
+│   │   │   │   ├── animations.ts
+│   │   │   │   └── index.ts
+│   │   │   └── types/
+│   │   │       └── animation.types.ts
+│   │   └── admin/
+│   │       ├── dashboard/
+│   │       │   ├── Dashboard.tsx
+│   │       │   ├── StatsCard.tsx
+│   │       │   └── index.ts
+│   │       ├── user-management/
+│   │       │   ├── UserTable.tsx
+│   │       │   ├── UserForm.tsx
+│   │       │   └── index.ts
+│   │       ├── content-moderation/
+│   │       │   ├── ModerationQueue.tsx
+│   │       │   ├── ReviewModal.tsx
+│   │       │   └── index.ts
+│   │       ├── components/
+│   │       │   └── index.ts
+│   │       ├── hooks/
+│   │       │   ├── useAdmin.ts
+│   │       │   └── index.ts
+│   │       ├── utils/
+│   │       │   └── adminUtils.ts
+│   │       ├── config/
+│   │       │   └── adminConfig.ts
+│   │       ├── database/
+│   │       │   ├── schema.ts
+│   │       │   ├── queries.ts
+│   │       │   └── models.ts
+│   │       ├── api/
+│   │       │   ├── routes.ts
+│   │       │   └── index.ts
+│   │       ├── tests/
+│   │       │   ├── unit/
+│   │       │   ├── integration/
+│   │       │   └── e2e/
+│   │       └── env/
+│   │
+│   ├── api/
+│   │   ├── v1/
+│   │   │   ├── auth.ts
+│   │   │   ├── users.ts
+│   │   │   ├── memories.ts
+│   │   │   ├── timeline.ts
+│   │   │   ├── gallery.ts
+│   │   │   ├── chat.ts
+│   │   │   ├── story.ts
+│   │   │   ├── music.ts
+│   │   │   ├── video.ts
+│   │   │   ├── admin.ts
+│   │   │   └── index.ts
+│   │   ├── middleware/
+│   │   │   ├── authMiddleware.ts
+│   │   │   ├── adminMiddleware.ts
+│   │   │   └── validationMiddleware.ts
+│   │   ├── validators/
+│   │   │   ├── userSchema.ts
+│   │   │   ├── memorySchema.ts
+│   │   │   ├── timelineSchema.ts
+│   │   │   ├── gallerySchema.ts
+│   │   │   └── index.ts
+│   │   └── routes/
+│   │       ├── index.ts
+│   │       └── middleware.ts
+│   |
+│   ├── lib/
+│   │   ├── auth/
+│   │   │   ├── passwordHash.ts
+│   │   │   ├── tokenManager.ts
+│   │   │   └── index.ts
+│   │   ├── validations/
+│   │   │   ├── globalSchemas.ts
+│   │   │   └── index.ts
+│   │   ├── utils/
+│   │   │   ├── dateUtils.ts
+│   │   │   ├── storageUtils.ts
+│   │   │   ├── formatUtils.ts
+│   │   │   └── index.ts
+│   │   ├── config/
+│   │   │   └── appConfig.ts
+│   │   ├── db/
+│   │   │   ├── client.ts
+│   │   │   ├── connection.ts
+│   │   │   └── index.ts
+│   │   └── index.ts
+│   |
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Modal.tsx
+│   │   │   ├── Dropdown.tsx
+│   │   │   └── index.ts
+│   │   ├── ui/
+│   │   │   ├── Card.tsx
+│   │   │   ├── Avatar.tsx
+│   │   │   ├── Badge.tsx
+│   │   │   ├── ProgressBar.tsx
+│   │   │   └── index.ts
+│   │   ├── layout/
+│   │   │   ├── Header.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── Navigation.tsx
+│   │   │   └── index.ts
+│   │   └── modules/
+│   │       ├── memory/
+│   │       │   ├── MemoryCard.tsx
+│   │       │   └── index.ts
+│   │       ├── timeline/
+│   │       │   ├── Timeline.tsx
+│   │       │   └── index.ts
+│   │       ├── gallery/
+│   │       │   ├── Gallery.tsx
+│   │       │   └── index.ts
+│   │       ├── chat/
+│   │       │   ├── ChatInterface.tsx
+│   │       │   └── index.ts
+│   │       ├── story/
+│   │       │   ├── StoryReader.tsx
+│   │       │   └── index.ts
+│   │       ├── birthday/
+│   │       │   ├── BirthdayCard.tsx
+│   │       │   └── index.ts
+│   │       ├── music/
+│   │       │   ├── AudioPlayer.tsx
+│   │       │   └── index.ts
+│   │       ├── video/
+│   │       │   ├── VideoPlayer.tsx
+│   │       │   └── index.ts
+│   │       └── admin/
+│   │           ├── Dashboard.tsx
+│   │           └── index.ts
+│   |
+│   ├── hooks/
+│   │   ├── useAuth/
+│   │   │   ├── useAuth.ts
+│   │   │   └── index.ts
+│   │   ├── useMemory/
+│   │   │   ├── useMemory.ts
+│   │   │   └── index.ts
+│   │   ├── useAnimation/
+│   │   │   ├── useAnimation.ts
+│   │   │   └── index.ts
+│   │   ├── useConfig/
+│   │   │   ├── useConfig.ts
+│   │   │   └── index.ts
+│   │   ├── useLocalStorage/
+│   │   │   ├── useLocalStorage.ts
+│   │   │   └── index.ts
+│   │   ├── useWindowDimensions/
+│   │   │   ├── useWindowDimensions.ts
+│   │   │   └── index.ts
+│   │   └── index.ts
+│   |
+│   ├── config/
+│   │   ├── features/
+│   │   │   └── features.ts
+│   │   ├── theme/
+│   │   │   ├── colors.ts
+│   │   │   ├── typography.ts
+│   │   │   ├── index.ts
+│   │   │   └── themeConfig.ts
+│   │   ├── animations/
+│   │   │   ├── timing.ts
+│   │   │   ├── easing.ts
+│   │   │   └── animationsConfig.ts
+│   │   ├── music/
+│   │   │   ├── audioSettings.ts
+│   │   │   └── index.ts
+│   │   ├── calendar/
+│   │   │   ├── dateTracking.ts
+│   │   │   └── index.ts
+│   │   ├── security/
+│   │   │   ├── authSettings.ts
+│   │   │   ├── passwordValidation.ts
+│   │   │   └── index.ts
+│   │   ├── content-display/
+│   │   │   ├── displayPrefs.ts
+│   │   │   └── index.ts
+│   │   ├── validations/
+│   │   │   ├── validationRules.ts
+│   │   │   └── index.ts
+│   │   └── index.ts
+│   |
+│   ├── database/
+│   │   ├── schema/
+│   │   │   ├── index.ts
+│   │   │   └── tables.ts
+│   │   ├── migrations/
+│   │   │   ├── init.sql
+│   │   │   ├── v1_users.sql
+│   │   │   ├── v2_memories.sql
+│   │   │   └── v3_timeline.sql
+│   │   ├── queries/
+│   │   │   ├── userQueries.ts
+│   │   │   ├── memoryQueries.ts
+│   │   │   ├── timelineQueries.ts
+│   │   │   ├── galleryQueries.ts
+│   │   │   ├── chatQueries.ts
+│   │   │   └── index.ts
+│   │   ├── models/
+│   │   │   ├── User.ts
+│   │   │   ├── Memory.ts
+│   │   │   ├── Timeline.ts
+│   │   │   ├── Gallery.ts
+│   │   │   ├── Chat.ts
+│   │   │   ├── Story.ts
+│   │   │   ├── Music.ts
+│   │   │   ├── Video.ts
+│   │   │   └── index.ts
+│   │   └── seed/
+│   │       ├── users.sql
+│   │       ├── memories.sql
+│   │       ├── timeline.sql
+│   │       └── gallery.sql
+│   |
+│   └── types/
+│       ├── core/
+│       │   ├── common.ts
+│       │   └── index.ts
+│       ├── memory/
+│       │   ├── memory.types.ts
+│       │   └── index.ts
+│       ├── timeline/
+│       │   ├── timeline.types.ts
+│       │   └── index.ts
+│       ├── gallery/
+│       │   ├── gallery.types.ts
+│       │   └── index.ts
+│       ├── chat/
+│       │   ├── chat.types.ts
+│       │   └── index.ts
+│       ├── story/
+│       │   ├── story.types.ts
+│       │   └── index.ts
+│       ├── audio/
+│       │   ├── audio.types.ts
+│       │   └── index.ts
+│       ├── user/
+│       │   ├── user.types.ts
+│       │   └── index.ts
+│       ├── config/
+│       │   ├── config.types.ts
+│       │   └── index.ts
+│       └── index.ts
+│
+├── constants/
+│   ├── apiUrl.ts
+│   ├── routing.ts
+│   └── appConstants.ts
+│
+├── env/
+│   ├── .env.development
+│   ├── .env.staging
+│   ├── .env.production
+│   ├── .env.local.example
+│   └── index.ts
+│
+├── styles/
+│   ├── global.css
+│   ├── variables.css
+│   ├── animations.css
+│   └── index.ts
+│
+├── docs/
+│   ├── api/
+│   │   ├── auth-api.md
+│   │   ├── memories-api.md
+│   │   ├── timeline-api.md
+│   │   └── index.md
+│   ├── components/
+│   │   ├── Button.md
+│   │   ├── Card.md
+│   │   ├── LayoutComponents.md
+│   │   └── index.md
+│   ├── migration/
+│   │   ├── from-v1.md
+│   │   ├── from-v2.md
+│   │   └── index.md
+│   └── setup/
+│       ├── development-setup.md
+│       ├── database-setup.md
+│       └── index.md
+│
+├── scripts/
+│   ├── database/
+│   │   ├── migrate.js
+│   │   ├── seed.js
+│   │   └── reset.js
+│   ├── seed/
+│   │   ├── createDemoData.js
+│   │   └── cleanupDemoData.js
+│   ├── build/
+│   │   ├── webpackConfig.js
+│   │   └── optimizeImages.js
+│   └── test/
+│       ├── unitTests.js
+│       ├── integrationTests.js
+│       └── e2eTests.js
+│
+├── tests/
+│   ├── unit/
+│   │   ├── components/
+│   │   │   └── Button.test.tsx
+│   │   ├── hooks/
+│   │   │   └── useAuth.test.ts
+│   │   └── utils/
+│   │       └── dateUtils.test.ts
+│   ├── integration/
+│   │   ├── api/
+│   │   │   └── memories.test.ts
+│   │   └── database/
+│   │       └── memoryQueries.test.ts
+│   └── e2e/
+│       ├── login-flow.spec.ts
+│       └── memory-management.spec.ts
+│
+├── app/
+│   ├── page.tsx
+│   ├── layout.tsx
+│   ├── globals.css
+│   └── api/                    # Legacy API routes
+│       ├── auth/
+│       └── memory/
+│
+├── components/                # Legacy components
+│   └── ...
+│
+├── lib/                       # Legacy utilities
+│   └── ...
+│
+├── public/
+│   ├── images/
+│   ├── fonts/
+│   └── favicon.ico
+│
+├── next.config.js
+├── tsconfig.json
+├── postcss.config.js
+├── tailwind.config.js
+├── README.md
+├── package.json
+├── .eslintrc.json
+├── .prettierrc
+├── .gitignore
+└── PROJECT_STRUCTURE.md

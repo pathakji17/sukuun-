@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "showUpcomingCountdown": true,
+  "cycleTrackingEnabled": false,
+  "cycleDuration": 28,
+  "showCycleEstimate": true,
+  "showCycleNotification": false,
+  "cycleNotificationDaysBefore": 1
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "event-001",
+    "date": "2026-07-13",
+    "title": "Project Started",
+    "description": "Started using Sukuun to preserve memories",
+    "icon": "heart",
+    "importance": "high"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "defaultSpeed": "normal",
+  "speedMultiplier": 1,
+  "pageTransition": "fade",
+  "transitionDuration": 600,
+  "respectMotionPreference": true
+}

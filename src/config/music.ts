@@ -1,0 +1,10 @@
+import { type MusicConfig } from '@/types/config';
+
+export const musicConfig: MusicConfig = {
+  enabled: true,
+  autoplay: false,
+  defaultVolume: 0.3,
+  loop: true,
+  fadeInDuration: 2000,
+  fadeOutDuration: 2000,
+};

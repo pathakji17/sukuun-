@@ -1,0 +1,7 @@
+{
+  "passwordRequired": true,
+  "sessionTimeout": 3600000,
+  "rememberDevice": false,
+  "enableBackups": true,
+  "backupFrequency": "weekly"
+}
