@@ -4,19 +4,11 @@ import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Navigation from '@/components/ui/Navigation';
-import { getAssetPath } from '@/lib/basePath';
 
 const MYRA_BIRTHDAY_MONTH = 9; // October (0-indexed)
 const MYRA_BIRTHDAY_DAY = 5;
 const MYRA_BIRTHDAY_HOUR = 5; // 5 AM
 const MYRA_NAME = 'Myra ji';
-
-const rawSamplePhotos = [
-  '/images/photo-1.jpeg',
-  '/images/photo-2.jpeg',
-  '/images/photo-3.jpeg',
-  '/images/photo-4.jpeg',
-];
 
 function getNextBirthday(): Date {
   const now = new Date();
@@ -120,7 +112,6 @@ export default function HomeClient() {
   const [countdown, setCountdown] = useState(getTimeUntil(getNextBirthday()));
   const nextBirthday = useMemo(() => getNextBirthday(), []);
   const greeting = useMemo(() => getGreeting(), []);
-  const samplePhotos = useMemo(() => rawSamplePhotos.map((src) => getAssetPath(src)), []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -201,44 +192,11 @@ export default function HomeClient() {
           </motion.p>
         </motion.div>
 
+        {/* Birthday Countdown Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.7 }}
-          className="mb-10"
-        >
-          <Link href="/gallery" className="block group">
-            <div className="glass-strong rounded-3xl p-4 sm:p-5 shadow-soft hover:shadow-lg transition-all duration-300">
-              <div className="flex items-center justify-between mb-3 px-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-base">✨</span>
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-sukuun-text font-[family-name:var(--font-crimson)]">
-                    Featured Memories
-                  </h3>
-                </div>
-                <span className="text-xs text-sukuun-rose-deep font-medium group-hover:translate-x-1 transition-transform">
-                  View All Gallery →
-                </span>
-              </div>
-              <div className="grid grid-cols-4 gap-2 rounded-2xl overflow-hidden">
-                {samplePhotos.map((src, idx) => (
-                  <div key={idx} className="aspect-square relative overflow-hidden bg-sukuun-rose/20 rounded-xl">
-                    <img
-                      src={src}
-                      alt="Memory thumbnail"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Link>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.7 }}
           className="mb-10"
         >
           <div className="glass-strong rounded-3xl p-6 sm:p-8 shadow-soft">
@@ -285,12 +243,13 @@ export default function HomeClient() {
           </div>
         </motion.div>
 
+        {/* Feature Cards Grid */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4">
           {features.map((feature, i) => (
             <FeatureCard
               key={feature.href}
               {...feature}
-              delay={0.8 + i * 0.1}
+              delay={0.6 + i * 0.1}
             />
           ))}
         </div>
@@ -298,7 +257,7 @@ export default function HomeClient() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
           className="text-center text-xs text-sukuun-gray-dark/50 mt-10 tracking-widest"
         >
           SUKUUN · made with love ♡
