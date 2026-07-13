@@ -1,11 +1,10 @@
 'use client';
 
-import { useActionState, useEffect, useRef, useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { login } from '../actions/auth';
+import { checkPassword, setAuthenticated } from '@/lib/clientAuth';
 
-// Floating petal component
 function Petal({ delay, left, size, duration }: {
   delay: number;
   left: string;
@@ -30,20 +29,33 @@ function Petal({ delay, left, size, duration }: {
 
 export default function LoginPage() {
   const router = useRouter();
-  const [state, formAction, isPending] = useActionState(login, {
-    success: false,
-  });
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isPending, setIsPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (state.success) {
-      router.push('/home');
-    }
-  }, [state.success, router]);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsPending(true);
+    setError('');
 
-  // Generate random petals
+    if (!password) {
+      setError('Please enter the password');
+      setIsPending(false);
+      return;
+    }
+
+    if (checkPassword(password)) {
+      setAuthenticated();
+      router.push('/home');
+    } else {
+      setError('Incorrect password, try again ♡');
+      setIsPending(false);
+    }
+  };
+
   const petals = Array.from({ length: 12 }, (_, i) => ({
     id: i,
     delay: Math.random() * 8,
@@ -54,17 +66,14 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-dvh flex items-center justify-center relative overflow-hidden bg-gradient-sukuun">
-      {/* Floating petals */}
       {petals.map((petal) => (
         <Petal key={petal.id} {...petal} />
       ))}
 
-      {/* Ambient glow orbs */}
       <div className="absolute top-[20%] left-[10%] w-64 h-64 rounded-full bg-sukuun-rose/30 blur-[80px] animate-pulse-soft" />
       <div className="absolute bottom-[20%] right-[10%] w-80 h-80 rounded-full bg-sukuun-lavender/30 blur-[100px] animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
       <div className="absolute top-[60%] left-[50%] w-48 h-48 rounded-full bg-sukuun-pink/20 blur-[60px] animate-pulse-soft" style={{ animationDelay: '3s' }} />
 
-      {/* Login Card */}
       <motion.div
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -72,14 +81,12 @@ export default function LoginPage() {
         className="relative z-10 w-full max-w-md mx-4"
       >
         <div className="glass-strong rounded-3xl p-8 sm:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-          {/* Logo / Branding */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-center mb-10"
           >
-            {/* Decorative heart */}
             <motion.div
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -98,15 +105,13 @@ export default function LoginPage() {
             </p>
           </motion.div>
 
-          {/* Login Form */}
           <motion.form
-            action={formAction}
+            onSubmit={handleSubmit}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.6 }}
             className="space-y-6"
           >
-            {/* Password Input */}
             <div className="relative">
               <div
                 className={`relative rounded-2xl transition-all duration-300 ${
@@ -118,7 +123,8 @@ export default function LoginPage() {
                 <input
                   ref={inputRef}
                   type={showPassword ? 'text' : 'password'}
-                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter the secret word..."
                   autoComplete="current-password"
                   onFocus={() => setIsFocused(true)}
@@ -145,21 +151,19 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Error Message */}
             <AnimatePresence>
-              {state.error && (
+              {error && (
                 <motion.p
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   className="text-sm text-sukuun-period-red text-center"
                 >
-                  {state.error}
+                  {error}
                 </motion.p>
               )}
             </AnimatePresence>
 
-            {/* Submit Button */}
             <motion.button
               type="submit"
               disabled={isPending}
@@ -181,7 +185,6 @@ export default function LoginPage() {
             </motion.button>
           </motion.form>
 
-          {/* Bottom decoration */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

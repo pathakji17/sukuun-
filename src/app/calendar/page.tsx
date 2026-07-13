@@ -1,12 +1,12 @@
-import { redirect } from 'next/navigation';
-import { isAuthenticated } from '../actions/auth';
+'use client';
+
+import ClientAuthGuard from '@/components/ui/ClientAuthGuard';
 import CalendarClient from './CalendarClient';
 
-export default async function CalendarPage() {
-  const authed = await isAuthenticated();
-  if (!authed) {
-    redirect('/login');
-  }
-
-  return <CalendarClient />;
+export default function CalendarPage() {
+  return (
+    <ClientAuthGuard>
+      <CalendarClient />
+    </ClientAuthGuard>
+  );
 }

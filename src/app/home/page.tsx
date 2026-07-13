@@ -1,12 +1,12 @@
-import { redirect } from 'next/navigation';
-import { isAuthenticated } from '../actions/auth';
+'use client';
+
+import ClientAuthGuard from '@/components/ui/ClientAuthGuard';
 import HomeClient from './HomeClient';
 
-export default async function HomePage() {
-  const authed = await isAuthenticated();
-  if (!authed) {
-    redirect('/login');
-  }
-
-  return <HomeClient />;
+export default function HomePage() {
+  return (
+    <ClientAuthGuard>
+      <HomeClient />
+    </ClientAuthGuard>
+  );
 }
