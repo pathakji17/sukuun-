@@ -11,13 +11,26 @@ interface StoryData {
   chapter: string;
   date: string;
   lines: string[];
+  imageSrc?: string;
 }
 
 const defaultStories: StoryData[] = [
   {
+    id: 'story-magic-notification',
+    title: 'The Magic Notification ✨',
+    chapter: 'Chapter 1: Invisible Strings',
+    date: 'June 11 · 1:42 PM',
+    imageSrc: '/images/notification-11june.jpg',
+    lines: [
+      "Here when the magic notification popped up... 11 June at 1:42 PM 📱",
+      "When the invisible strings connected afterwards...",
+      "A lot of time later, near 3 years... ♡",
+    ],
+  },
+  {
     id: 'story-first-call',
     title: 'Our Very First Call 📞',
-    chapter: 'Chapter 1: The Connection',
+    chapter: 'Chapter 2: The Connection',
     date: 'March 15',
     lines: [
       "It started with a nervous breath before dialing the number.",
@@ -31,7 +44,7 @@ const defaultStories: StoryData[] = [
 
 export default function StoriesClient() {
   const [stories, setStories] = useState<StoryData[]>(defaultStories);
-  const [selectedStoryId, setSelectedStoryId] = useState<string>('story-first-call');
+  const [selectedStoryId, setSelectedStoryId] = useState<string>('story-magic-notification');
 
   const currentStory = stories.find((s) => s.id === selectedStoryId) || stories[0];
 
@@ -91,6 +104,7 @@ export default function StoriesClient() {
             subtitle={currentStory.chapter}
             date={currentStory.date}
             lines={currentStory.lines}
+            imageSrc={currentStory.imageSrc}
           />
         )}
       </div>
