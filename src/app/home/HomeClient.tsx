@@ -5,18 +5,17 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Navigation from '@/components/ui/Navigation';
 
-// ============================================================================
-// CONSTANTS
-// ============================================================================
-
 const MYRA_BIRTHDAY_MONTH = 9; // October (0-indexed)
 const MYRA_BIRTHDAY_DAY = 5;
 const MYRA_BIRTHDAY_HOUR = 5; // 5 AM
 const MYRA_NAME = 'Myra ji';
 
-// ============================================================================
-// HELPERS
-// ============================================================================
+const samplePhotos = [
+  '/images/WhatsApp Image 2026-07-14 at 12.49.04 AM.jpeg',
+  '/images/WhatsApp Image 2026-07-13 at 9.29.31 PM.jpeg',
+  '/images/WhatsApp Image 2026-07-13 at 9.29.32 PM.jpeg',
+  '/images/WhatsApp Image 2026-07-13 at 9.29.32 PM (1).jpeg',
+];
 
 function getNextBirthday(): Date {
   const now = new Date();
@@ -55,10 +54,6 @@ function getGreeting(): string {
   return 'Good night';
 }
 
-// ============================================================================
-// COUNTDOWN UNIT COMPONENT
-// ============================================================================
-
 function CountdownUnit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
@@ -79,10 +74,6 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
     </div>
   );
 }
-
-// ============================================================================
-// FEATURE CARD COMPONENT
-// ============================================================================
 
 function FeatureCard({
   href,
@@ -124,10 +115,6 @@ function FeatureCard({
   );
 }
 
-// ============================================================================
-// MAIN HOME CLIENT COMPONENT
-// ============================================================================
-
 export default function HomeClient() {
   const [countdown, setCountdown] = useState(getTimeUntil(getNextBirthday()));
   const nextBirthday = useMemo(() => getNextBirthday(), []);
@@ -159,7 +146,7 @@ export default function HomeClient() {
       href: '/gallery',
       icon: '📸',
       title: 'Gallery',
-      description: 'Photos that tell our story',
+      description: '7 Photos & 2 Videos',
       gradient: 'bg-gradient-to-br from-sukuun-lavender to-sukuun-blue',
     },
     {
@@ -173,14 +160,11 @@ export default function HomeClient() {
 
   return (
     <div className="min-h-dvh pb-28 relative overflow-hidden">
-      {/* Background gradient orbs */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-sukuun-rose/20 blur-[120px] -translate-y-1/2 translate-x-1/3" />
       <div className="absolute bottom-[30%] left-0 w-[400px] h-[400px] rounded-full bg-sukuun-lavender/20 blur-[100px] -translate-x-1/3" />
       <div className="absolute top-[40%] right-[20%] w-[300px] h-[300px] rounded-full bg-sukuun-pink/15 blur-[80px]" />
 
-      {/* Content */}
       <div className="relative z-10 max-w-lg mx-auto px-5 pt-12 sm:pt-16">
-        {/* Greeting */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -190,12 +174,11 @@ export default function HomeClient() {
           <p className="text-sukuun-text-light text-sm tracking-wide">{greeting},</p>
         </motion.div>
 
-        {/* Name - THE WOW MOMENT */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-10"
+          className="mb-8"
         >
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text leading-tight tracking-tight">
             {MYRA_NAME}
@@ -216,6 +199,41 @@ export default function HomeClient() {
           </motion.p>
         </motion.div>
 
+        {/* Photo Memory Carousel Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.7 }}
+          className="mb-10"
+        >
+          <Link href="/gallery" className="block group">
+            <div className="glass-strong rounded-3xl p-4 sm:p-5 shadow-soft hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center justify-between mb-3 px-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">✨</span>
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-sukuun-text font-[family-name:var(--font-crimson)]">
+                    Featured Memories
+                  </h3>
+                </div>
+                <span className="text-xs text-sukuun-rose-deep font-medium group-hover:translate-x-1 transition-transform">
+                  View All Gallery →
+                </span>
+              </div>
+              <div className="grid grid-cols-4 gap-2 rounded-2xl overflow-hidden">
+                {samplePhotos.map((src, idx) => (
+                  <div key={idx} className="aspect-square relative overflow-hidden bg-sukuun-rose/20 rounded-xl">
+                    <img
+                      src={src}
+                      alt="Memory thumbnail"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Link>
+        </motion.div>
+
         {/* Birthday Countdown Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -225,7 +243,6 @@ export default function HomeClient() {
         >
           <div className="glass-strong rounded-3xl p-6 sm:p-8 shadow-soft">
             {countdown.isBirthday ? (
-              /* Birthday celebration mode */
               <div className="text-center">
                 <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
@@ -242,7 +259,6 @@ export default function HomeClient() {
                 </p>
               </div>
             ) : (
-              /* Countdown mode */
               <>
                 <div className="flex items-center gap-2 mb-5">
                   <span className="text-lg">🎂</span>
@@ -280,7 +296,6 @@ export default function HomeClient() {
           ))}
         </div>
 
-        {/* Subtle footer message */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -291,7 +306,6 @@ export default function HomeClient() {
         </motion.p>
       </div>
 
-      {/* Navigation */}
       <Navigation />
     </div>
   );
