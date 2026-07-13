@@ -24,6 +24,15 @@ const navItems = [
     ),
   },
   {
+    href: '/unki-aawaj',
+    label: 'Aawaj',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
+      </svg>
+    ),
+  },
+  {
     href: '/memories',
     label: 'Memories',
     icon: (
@@ -51,12 +60,12 @@ export default function Navigation() {
       <div className="mx-3 mb-3 sm:mx-auto sm:max-w-md">
         <div className="glass-strong rounded-2xl px-2 py-2 flex items-center justify-around shadow-[0_-4px_30px_rgba(0,0,0,0.06)]">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = pathname === item.href || pathname === `${item.href}/`;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-200"
+                className="relative flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all duration-200"
               >
                 {isActive && (
                   <motion.div

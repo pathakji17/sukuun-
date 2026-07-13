@@ -129,6 +129,13 @@ export default function HomeClient() {
       gradient: 'bg-gradient-to-br from-sukuun-rose to-sukuun-pink',
     },
     {
+      href: '/unki-aawaj',
+      icon: '🎙️',
+      title: 'Unki Aawaj',
+      description: 'Voice notes & audio recordings',
+      gradient: 'bg-gradient-to-br from-sukuun-rose-deep to-sukuun-pink-deep',
+    },
+    {
       href: '/memories',
       icon: '💝',
       title: 'Memories',
