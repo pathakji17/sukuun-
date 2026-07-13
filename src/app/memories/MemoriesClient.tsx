@@ -28,7 +28,7 @@ const initialMemories: MemoryItem[] = [
     mood: 'romantic',
     description: 'Our first call was at 11:07 PM to 11:09 PM...',
     story: `Our first call was at 11:07 PM to 11:09 PM... 2 mins.\n\nThen again when we started, it went from 11:33 PM to 2:06 AM... for 93 mins! 💖\n\nThen again at early morning, a sweet little call at 5:32 AM to 5:35 AM... ☀️`,
-    photos: ['/images/notification-11june.jpg'],
+    photos: ['/images/first-call-1107pm.jpg'],
     location: 'Midnight Conversations',
     favorite: true,
   },
@@ -253,15 +253,25 @@ export default function MemoriesClient() {
                     {mem.title}
                   </h3>
 
-                  {/* Clean, Simple, User-Friendly Teaser Quote & Read Button */}
-                  <p className="text-sm text-sukuun-text-light font-[family-name:var(--font-crimson)] italic line-clamp-1 mb-3">
+                  {/* Plain, Clean Photo Thumbnail & Story Preview */}
+                  {mem.photos && mem.photos.length > 0 && (
+                    <div className="my-3 rounded-2xl overflow-hidden glass shadow-soft max-w-xs border border-sukuun-rose/30">
+                      <img
+                        src={getAssetPath(mem.photos[0])}
+                        alt={mem.title}
+                        className="w-full h-auto object-cover max-h-56 group-hover:scale-102 transition-transform duration-500"
+                      />
+                    </div>
+                  )}
+
+                  <p className="text-sm text-sukuun-text-light font-[family-name:var(--font-crimson)] italic line-clamp-2 mb-3">
                     "{mem.description || mem.story.split('\n')[0]}"
                   </p>
 
                   <div className="flex items-center justify-between text-xs text-sukuun-rose-deep font-medium pt-2 border-t border-sukuun-rose/20">
-                    <span>✨ Touch to read full memory</span>
-                    <span className="group-hover:translate-x-1 transition-transform">
-                      Read Memory →
+                    <span>Tap to view live story animation</span>
+                    <span className="group-hover:translate-x-1 transition-transform font-semibold">
+                      Open Memory →
                     </span>
                   </div>
                 </motion.div>
