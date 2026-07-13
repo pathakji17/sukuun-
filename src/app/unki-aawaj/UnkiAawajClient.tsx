@@ -12,33 +12,42 @@ export interface VoiceNote {
   duration?: string;
   src: string;
   note?: string;
+  lines?: string[];
   favorite?: boolean;
 }
 
-const defaultVoiceNotes: VoiceNote[] = [
+const allAudioCount = 34;
+
+// Generate 34 voice notes list
+const voiceNotesList: VoiceNote[] = [
   {
-    id: 'vn-1',
-    title: 'First Sweet Voice Note 🎙️',
-    date: 'June 11',
-    duration: '0:45',
-    src: '/audio/voice-note-1.mp3',
-    note: 'The voice that melts away every worry ♡',
+    id: 'vn-top-1',
+    title: 'Featured Voice Note 🎙️',
+    date: 'Special Recording',
+    duration: '0:27',
+    src: '/audio/audio-1.mp3',
+    note: 'Shoutout Special Memory ♡',
+    lines: [
+      "I'm a big fan of her... ♡",
+      "Mujhe shoutout de do vermaaa jiiii... 🎙️✨",
+    ],
     favorite: true,
   },
-  {
-    id: 'vn-2',
-    title: 'Good Morning Memory ☀️',
-    date: 'July 8',
-    duration: '1:12',
-    src: '/audio/voice-note-2.mp3',
-    note: 'Waking up to this sweet voice message.',
-    favorite: false,
-  },
+  ...Array.from({ length: allAudioCount - 1 }, (_, i) => {
+    const num = i + 2;
+    return {
+      id: `vn-${num}`,
+      title: `Unki Aawaj Recording #${num} 🎵`,
+      date: `Recording ${num}`,
+      src: `/audio/audio-${num}.mp3`,
+      favorite: false,
+    };
+  }),
 ];
 
 export default function UnkiAawajClient() {
-  const [voiceNotes, setVoiceNotes] = useState<VoiceNote[]>(defaultVoiceNotes);
-  const [currentTrack, setCurrentTrack] = useState<VoiceNote | null>(defaultVoiceNotes[0]);
+  const [voiceNotes, setVoiceNotes] = useState<VoiceNote[]>(voiceNotesList);
+  const [currentTrack, setCurrentTrack] = useState<VoiceNote | null>(voiceNotesList[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -95,7 +104,7 @@ export default function UnkiAawajClient() {
 
   return (
     <div className="min-h-dvh pb-28 relative overflow-hidden bg-sukuun-cream">
-      {/* Background Orbs */}
+      {/* Background Ambient Orbs */}
       <div className="absolute top-0 right-0 w-[450px] h-[450px] rounded-full bg-sukuun-rose/20 blur-[110px] -translate-y-1/3 translate-x-1/3" />
       <div className="absolute bottom-[20%] left-0 w-[350px] h-[350px] rounded-full bg-sukuun-lavender/20 blur-[90px] -translate-x-1/3" />
 
@@ -124,13 +133,14 @@ export default function UnkiAawajClient() {
             Unki Aawaj (उनकी आवाज़)
           </h1>
           <p className="text-sukuun-text-light text-sm mt-1">
-            Voice notes and audio moments stored with love ♡
+            34 Voice Recordings stored with love ♡
           </p>
         </motion.div>
 
-        {/* Currently Playing Highlight Player Card */}
+        {/* Currently Playing Player Card */}
         {currentTrack && (
           <motion.div
+            key={currentTrack.id}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
@@ -147,9 +157,30 @@ export default function UnkiAawajClient() {
               {currentTrack.title}
             </h2>
             {currentTrack.note && (
-              <p className="text-xs text-sukuun-text-light mb-6 italic">
+              <p className="text-xs text-sukuun-text-light mb-4 italic">
                 "{currentTrack.note}"
               </p>
+            )}
+
+            {/* Line-by-Line Staggered Text Reveal Animation */}
+            {currentTrack.lines && currentTrack.lines.length > 0 && (
+              <div className="my-5 p-4 rounded-2xl bg-sukuun-rose/20 border border-sukuun-rose/40 space-y-2">
+                {currentTrack.lines.map((line, idx) => (
+                  <motion.p
+                    key={idx}
+                    initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    transition={{
+                      duration: 0.6,
+                      delay: idx * 0.35, // Line 1 pre-written, Line 2 starts 0.35s after
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="font-[family-name:var(--font-crimson)] text-base sm:text-lg text-sukuun-text font-semibold tracking-wide"
+                  >
+                    {line}
+                  </motion.p>
+                ))}
+              </div>
             )}
 
             {/* Audio Progress Bar */}
@@ -168,7 +199,7 @@ export default function UnkiAawajClient() {
               </div>
             </div>
 
-            {/* Control Buttons */}
+            {/* Control Button */}
             <div className="flex items-center justify-center gap-6">
               <button
                 onClick={togglePlayPause}
@@ -183,59 +214,56 @@ export default function UnkiAawajClient() {
         {/* Voice Note Playlist */}
         <div className="space-y-3">
           <h3 className="text-xs uppercase font-semibold tracking-wider text-sukuun-text-light mb-3">
-            Saved Voice Recordings ({voiceNotes.length})
+            All Voice Recordings ({voiceNotes.length})
           </h3>
 
-          {voiceNotes.map((note) => {
-            const isSelected = currentTrack?.id === note.id;
-            return (
-              <motion.div
-                key={note.id}
-                whileHover={{ scale: 1.01 }}
-                onClick={() => {
-                  setCurrentTrack(note);
-                  setIsPlaying(true);
-                }}
-                className={`glass rounded-2xl p-4 sm:p-5 flex items-center justify-between cursor-pointer transition-all duration-300 ${
-                  isSelected ? 'ring-2 ring-sukuun-pink shadow-md bg-white/80' : 'hover:bg-white/60'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold ${
-                      isSelected
-                        ? 'bg-sukuun-rose-deep text-white'
-                        : 'bg-sukuun-pink/30 text-sukuun-text'
-                    }`}
-                  >
-                    {isSelected && isPlaying ? '🎵' : '🎙️'}
+          <div className="max-h-[500px] overflow-y-auto pr-1 space-y-2.5">
+            {voiceNotes.map((note) => {
+              const isSelected = currentTrack?.id === note.id;
+              return (
+                <motion.div
+                  key={note.id}
+                  whileHover={{ scale: 1.01 }}
+                  onClick={() => {
+                    setCurrentTrack(note);
+                    setIsPlaying(true);
+                  }}
+                  className={`glass rounded-2xl p-4 flex items-center justify-between cursor-pointer transition-all duration-300 ${
+                    isSelected ? 'ring-2 ring-sukuun-pink shadow-md bg-white/90' : 'hover:bg-white/60'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold ${
+                        isSelected
+                          ? 'bg-sukuun-rose-deep text-white'
+                          : 'bg-sukuun-pink/30 text-sukuun-text'
+                      }`}
+                    >
+                      {isSelected && isPlaying ? '🎵' : '🎙️'}
+                    </div>
+                    <div>
+                      <h4 className="text-base font-semibold font-[family-name:var(--font-crimson)] text-sukuun-text">
+                        {note.title}
+                      </h4>
+                      <p className="text-xs text-sukuun-text-light">
+                        {note.date} {note.duration ? `· ${note.duration}` : ''}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-base font-semibold font-[family-name:var(--font-crimson)] text-sukuun-text">
-                      {note.title}
-                    </h4>
-                    <p className="text-xs text-sukuun-text-light">
-                      {note.date} {note.duration ? `· ${note.duration}` : ''}
-                    </p>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={(e) => toggleFavorite(note.id, e)}
+                      className="text-base"
+                    >
+                      {note.favorite ? '❤️' : '🤍'}
+                    </button>
                   </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={(e) => toggleFavorite(note.id, e)}
-                    className="text-base"
-                  >
-                    {note.favorite ? '❤️' : '🤍'}
-                  </button>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Note on how to add MP3 files */}
-        <div className="glass rounded-2xl p-4 mt-8 text-center text-xs text-sukuun-text-light">
-          💡 Place your audio MP3 files in <code className="bg-white/60 px-2 py-0.5 rounded text-sukuun-rose-deep font-mono">public/audio/</code> to add new voice recordings!
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
