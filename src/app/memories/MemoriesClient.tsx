@@ -206,7 +206,7 @@ export default function MemoriesClient() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ delay: i * 0.08, duration: 0.5 }}
                   onClick={() => setSelectedMemory(mem)}
-                  className="glass-strong rounded-3xl p-5 sm:p-6 shadow-soft hover:shadow-lg cursor-pointer transition-all duration-300 group border border-sukuun-rose/30 relative overflow-hidden"
+                  className="glass-strong rounded-3xl p-5 sm:p-6 shadow-soft hover:shadow-lg cursor-pointer transition-all duration-300 group border border-sukuun-rose/30"
                 >
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <div className="flex items-center gap-2 flex-wrap">
@@ -237,28 +237,19 @@ export default function MemoriesClient() {
                     </div>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text mb-3 group-hover:text-sukuun-rose-deep transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text mb-2 group-hover:text-sukuun-rose-deep transition-colors">
                     {mem.title}
                   </h3>
 
-                  {/* Sealed Curious Memory Teaser Box (Text hidden until opened!) */}
-                  <div className="my-3 p-4 rounded-2xl bg-gradient-to-r from-sukuun-rose/30 via-sukuun-pink/30 to-sukuun-lavender/30 border border-sukuun-pink/40 flex items-center justify-between group-hover:border-sukuun-rose-deep transition-colors">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-white/70 backdrop-blur flex items-center justify-center text-sm shadow-sm">
-                        🔒
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold text-sukuun-text font-[family-name:var(--font-crimson)]">
-                          Sealed Romantic Memory
-                        </p>
-                        <p className="text-[11px] text-sukuun-text-light">
-                          Tap to unlock & reveal live story ♡
-                        </p>
-                      </div>
-                    </div>
+                  {/* Clean, Simple, User-Friendly Teaser Quote & Read Button */}
+                  <p className="text-sm text-sukuun-text-light font-[family-name:var(--font-crimson)] italic line-clamp-1 mb-3">
+                    "{mem.description || mem.story.split('\n')[0]}"
+                  </p>
 
-                    <span className="text-xs text-sukuun-rose-deep font-semibold group-hover:translate-x-1 transition-transform">
-                      Open ✨
+                  <div className="flex items-center justify-between text-xs text-sukuun-rose-deep font-medium pt-2 border-t border-sukuun-rose/20">
+                    <span>✨ Touch to read full memory</span>
+                    <span className="group-hover:translate-x-1 transition-transform">
+                      Read Memory →
                     </span>
                   </div>
                 </motion.div>
