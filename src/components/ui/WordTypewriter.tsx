@@ -7,7 +7,7 @@ import { getAssetPath } from '@/lib/basePath';
 interface WordTypewriterProps {
   text: string;
   imageSrc?: string;
-  speed?: number; // ms per character
+  wordDelay?: number; // ms per word
   title?: string;
   date?: string;
   chapter?: string;
@@ -16,31 +16,29 @@ interface WordTypewriterProps {
 export default function WordTypewriter({
   text,
   imageSrc,
-  speed = 40,
+  wordDelay = 140, // Elegant slow premium pacing
   title,
   date,
   chapter,
 }: WordTypewriterProps) {
-  const [displayedText, setDisplayedText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
+  const words = text.split(/(\s+)/); // Preserves spaces and line breaks
+  const [visibleWordCount, setVisibleWordCount] = useState(0);
 
   useEffect(() => {
-    setDisplayedText('');
-    setIsTyping(true);
-    let index = 0;
+    setVisibleWordCount(0);
+    let count = 0;
 
     const timer = setInterval(() => {
-      if (index < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(index));
-        index++;
+      if (count < words.length) {
+        count++;
+        setVisibleWordCount(count);
       } else {
-        setIsTyping(false);
         clearInterval(timer);
       }
-    }, speed);
+    }, wordDelay);
 
     return () => clearInterval(timer);
-  }, [text, speed]);
+  }, [text, wordDelay, words.length]);
 
   return (
     <div className="glass-strong rounded-3xl p-6 sm:p-8 shadow-soft relative overflow-hidden border border-sukuun-rose/30 my-4">
@@ -72,7 +70,7 @@ export default function WordTypewriter({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
           className="mb-6 rounded-2xl overflow-hidden glass shadow-soft max-w-xs mx-auto border border-sukuun-rose/30"
         >
           <img
@@ -83,14 +81,28 @@ export default function WordTypewriter({
         </motion.div>
       )}
 
-      {/* 2. REAL WORD-BY-WORD / CHAR-BY-CHAR TYPEWRITER TEXT ON BOTTOM */}
-      <div className="min-h-[80px] font-[family-name:var(--font-crimson)] text-lg sm:text-xl text-sukuun-text leading-relaxed whitespace-pre-line">
-        <span>{displayedText}</span>
-        {isTyping && (
+      {/* 2. AUTOMATIC WORD-BY-WORD SLOW LIVE REVEAL WITH SOFT PREMIUM BLUR */}
+      <div className="min-h-[100px] font-[family-name:var(--font-crimson)] text-lg sm:text-xl text-sukuun-text leading-relaxed whitespace-pre-line">
+        {words.slice(0, visibleWordCount).map((word, index) => (
           <motion.span
-            animate={{ opacity: [1, 0, 1] }}
-            transition={{ duration: 0.8, repeat: Infinity }}
-            className="inline-block w-2 h-5 bg-sukuun-rose-deep ml-1 font-bold"
+            key={index}
+            initial={{ opacity: 0, filter: 'blur(8px)', y: 4, scale: 0.95 }}
+            animate={{ opacity: 1, filter: 'blur(0px)', y: 0, scale: 1 }}
+            transition={{
+              duration: 0.45,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="inline-block"
+          >
+            {word}
+          </motion.span>
+        ))}
+
+        {visibleWordCount < words.length && (
+          <motion.span
+            animate={{ opacity: [1, 0.2, 1] }}
+            transition={{ duration: 0.6, repeat: Infinity }}
+            className="inline-block w-1.5 h-4 bg-sukuun-rose-deep/70 ml-1 rounded-full align-middle"
           />
         )}
       </div>

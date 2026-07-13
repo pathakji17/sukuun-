@@ -294,7 +294,7 @@ export default function MemoriesClient() {
                 chapter={selectedMemory.chapter}
                 imageSrc={selectedMemory.photos?.[0]}
                 text={selectedMemory.story}
-                speed={40}
+                wordDelay={140}
               />
             </motion.div>
           </motion.div>
