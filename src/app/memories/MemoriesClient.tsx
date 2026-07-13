@@ -18,44 +18,7 @@ export interface MemoryItem {
   favorite?: boolean;
 }
 
-const initialMemories: MemoryItem[] = [
-  {
-    id: 'mem-1',
-    title: 'The First Time I Saw You',
-    date: '2026-03-15',
-    chapter: 'The Beginning',
-    mood: 'romantic',
-    description: 'A moment that changed everything.',
-    story: 'Every story has a beginning, and ours started with a simple hello. There was nothing extraordinary about that moment, except that it changed everything. It was the kind of meeting where you don’t realize in the moment that you’re meeting someone who will redefine what home means to you.',
-    photos: ['/images/photo-1.jpeg', '/images/photo-2.jpeg'],
-    location: 'Our Special Place',
-    favorite: true,
-  },
-  {
-    id: 'mem-2',
-    title: 'A Warm Quiet Afternoon',
-    date: '2026-04-18',
-    chapter: 'Sweet Moments',
-    mood: 'peaceful',
-    description: 'Holding onto this picture with all my heart.',
-    story: 'It was a quiet afternoon when time seemed to slow down. Looking into your eyes, every worry melted away into peace. Some moments are meant to be lived quietly, treasured forever in memory.',
-    photos: ['/images/photo-3.jpeg', '/images/photo-4.jpeg'],
-    location: 'Serene Haven',
-    favorite: true,
-  },
-  {
-    id: 'mem-3',
-    title: 'Golden Smile of Myra ji',
-    date: '2026-05-20',
-    chapter: 'Golden Days',
-    mood: 'happy',
-    description: 'Her genuine smile that brightens the entire room.',
-    story: 'Just a quiet glance and then suddenly — a smile that felt like the sun coming through the clouds. Myra ji’s laugh is the kind of sound you want to listen to on repeat.',
-    photos: ['/images/photo-5.jpeg', '/images/photo-6.jpeg', '/images/photo-7.jpeg'],
-    location: 'Sunshine Corner',
-    favorite: false,
-  },
-];
+const initialMemories: MemoryItem[] = [];
 
 const moodBadgeStyle = {
   romantic: 'bg-sukuun-rose/40 text-sukuun-rose-deep border-sukuun-rose',
@@ -196,76 +159,99 @@ export default function MemoriesClient() {
         </motion.div>
 
         {/* Memories List */}
-        <div className="space-y-4">
-          <AnimatePresence>
-            {filteredMemories.map((mem, i) => (
-              <motion.div
-                key={mem.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
-                onClick={() => setSelectedMemory(mem)}
-                className="glass-strong rounded-3xl p-5 sm:p-6 shadow-soft hover:shadow-lg cursor-pointer transition-all duration-300 group"
-              >
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span
-                      className={`text-[10px] font-semibold px-3 py-1 rounded-full border ${
-                        moodBadgeStyle[mem.mood]
-                      }`}
-                    >
-                      {moodEmoji[mem.mood]} {mem.chapter}
-                    </span>
-                    {mem.location && (
-                      <span className="text-[10px] text-sukuun-text-light flex items-center gap-1">
-                        📍 {mem.location}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-sukuun-text-light font-medium">
-                      {mem.date}
-                    </span>
-                    <button
-                      onClick={(e) => toggleFavorite(mem.id, e)}
-                      className="text-base transition-transform active:scale-125"
-                    >
-                      {mem.favorite ? '❤️' : '🤍'}
-                    </button>
-                  </div>
-                </div>
-
-                <h3 className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text mb-2 group-hover:text-sukuun-rose-deep transition-colors">
-                  {mem.title}
-                </h3>
-
-                <p className="text-sm text-sukuun-text-light line-clamp-3 leading-relaxed mb-4">
-                  {mem.story}
-                </p>
-
-                {/* Photo Thumbnail Strip */}
-                {mem.photos && mem.photos.length > 0 && (
-                  <div className="flex gap-2 overflow-hidden rounded-2xl">
-                    {mem.photos.slice(0, 3).map((photoSrc, idx) => (
-                      <div
-                        key={idx}
-                        className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-sukuun-rose/10 flex-shrink-0"
+        {filteredMemories.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="glass-strong rounded-3xl p-8 sm:p-12 text-center shadow-soft"
+          >
+            <div className="w-16 h-16 rounded-full bg-sukuun-pink/30 flex items-center justify-center text-3xl mx-auto mb-4">
+              💝
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text mb-2">
+              Ready for Memories
+            </h2>
+            <p className="text-sm text-sukuun-text-light max-w-sm mx-auto mb-6">
+              Send me your photos, texts, and heartfelt notes — I will populate this vault with all your special moments for Myra ji!
+            </p>
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="px-6 py-3 rounded-2xl bg-gradient-to-r from-sukuun-rose-deep to-sukuun-pink-deep text-white text-xs font-semibold shadow-md hover:shadow-lg transition-all"
+            >
+              + Create First Memory
+            </button>
+          </motion.div>
+        ) : (
+          <div className="space-y-4">
+            <AnimatePresence>
+              {filteredMemories.map((mem, i) => (
+                <motion.div
+                  key={mem.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                  onClick={() => setSelectedMemory(mem)}
+                  className="glass-strong rounded-3xl p-5 sm:p-6 shadow-soft hover:shadow-lg cursor-pointer transition-all duration-300 group"
+                >
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span
+                        className={`text-[10px] font-semibold px-3 py-1 rounded-full border ${
+                          moodBadgeStyle[mem.mood]
+                        }`}
                       >
-                        <img
-                          src={getAssetPath(photoSrc)}
-                          alt={mem.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                    ))}
+                        {moodEmoji[mem.mood]} {mem.chapter}
+                      </span>
+                      {mem.location && (
+                        <span className="text-[10px] text-sukuun-text-light flex items-center gap-1">
+                          📍 {mem.location}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-sukuun-text-light font-medium">
+                        {mem.date}
+                      </span>
+                      <button
+                        onClick={(e) => toggleFavorite(mem.id, e)}
+                        className="text-base transition-transform active:scale-125"
+                      >
+                        {mem.favorite ? '❤️' : '🤍'}
+                      </button>
+                    </div>
                   </div>
-                )}
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+
+                  <h3 className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text mb-2 group-hover:text-sukuun-rose-deep transition-colors">
+                    {mem.title}
+                  </h3>
+
+                  <p className="text-sm text-sukuun-text-light line-clamp-3 leading-relaxed mb-4">
+                    {mem.story}
+                  </p>
+
+                  {mem.photos && mem.photos.length > 0 && (
+                    <div className="flex gap-2 overflow-hidden rounded-2xl">
+                      {mem.photos.slice(0, 3).map((photoSrc, idx) => (
+                        <div
+                          key={idx}
+                          className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-sukuun-rose/10 flex-shrink-0"
+                        >
+                          <img
+                            src={getAssetPath(photoSrc)}
+                            alt={mem.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
       </div>
 
       {/* Memory Detail Modal */}
