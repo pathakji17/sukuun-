@@ -18,7 +18,20 @@ export interface MemoryItem {
   favorite?: boolean;
 }
 
-const initialMemories: MemoryItem[] = [];
+const initialMemories: MemoryItem[] = [
+  {
+    id: 'mem-magic-notification',
+    title: 'The Magic Notification ✨',
+    date: 'June 11 · 1:42 PM',
+    chapter: 'Invisible Strings',
+    mood: 'romantic',
+    description: 'When the invisible strings connected afterwards...',
+    story: `When the invisible strings connected afterwards a lot of time later near 3 years...\n\nMagic notification popped up...\n\n...and I found her ♡`,
+    photos: ['/images/notification-11june.jpg'],
+    location: 'June 11 · 1:42 PM',
+    favorite: true,
+  },
+];
 
 const moodBadgeStyle = {
   romantic: 'bg-sukuun-rose/40 text-sukuun-rose-deep border-sukuun-rose',
@@ -192,7 +205,7 @@ export default function MemoriesClient() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ delay: i * 0.08, duration: 0.5 }}
                   onClick={() => setSelectedMemory(mem)}
-                  className="glass-strong rounded-3xl p-5 sm:p-6 shadow-soft hover:shadow-lg cursor-pointer transition-all duration-300 group"
+                  className="glass-strong rounded-3xl p-5 sm:p-6 shadow-soft hover:shadow-lg cursor-pointer transition-all duration-300 group border border-sukuun-rose/30"
                 >
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <div className="flex items-center gap-2 flex-wrap">
@@ -227,16 +240,29 @@ export default function MemoriesClient() {
                     {mem.title}
                   </h3>
 
-                  <p className="text-sm text-sukuun-text-light line-clamp-3 leading-relaxed mb-4">
-                    {mem.story}
-                  </p>
+                  <div className="space-y-2 mb-4 font-[family-name:var(--font-crimson)] text-base text-sukuun-text">
+                    {mem.story.split('\n\n').map((line, idx) => (
+                      <motion.p
+                        key={idx}
+                        initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        transition={{
+                          duration: 0.6,
+                          delay: idx * 0.35, // Staggered line-by-line reveal
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                      >
+                        {line}
+                      </motion.p>
+                    ))}
+                  </div>
 
                   {mem.photos && mem.photos.length > 0 && (
                     <div className="flex gap-2 overflow-hidden rounded-2xl">
                       {mem.photos.slice(0, 3).map((photoSrc, idx) => (
                         <div
                           key={idx}
-                          className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-sukuun-rose/10 flex-shrink-0"
+                          className="max-w-[200px] h-32 rounded-xl overflow-hidden glass flex-shrink-0"
                         >
                           <img
                             src={getAssetPath(photoSrc)}
@@ -295,31 +321,37 @@ export default function MemoriesClient() {
                 {selectedMemory.title}
               </h2>
 
-              <p className="text-sukuun-text text-base leading-relaxed whitespace-pre-line mb-6">
-                {selectedMemory.story}
-              </p>
+              <div className="space-y-3 font-[family-name:var(--font-crimson)] text-base text-sukuun-text leading-relaxed mb-6">
+                {selectedMemory.story.split('\n\n').map((line, idx) => (
+                  <motion.p
+                    key={idx}
+                    initial={{ opacity: 0, y: 12, filter: 'blur(3px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    transition={{
+                      duration: 0.6,
+                      delay: idx * 0.35,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    {line}
+                  </motion.p>
+                ))}
+              </div>
 
               {selectedMemory.photos && selectedMemory.photos.length > 0 && (
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  {selectedMemory.photos.map((src, i) => (
-                    <div
-                      key={i}
-                      className="aspect-[4/3] rounded-2xl overflow-hidden glass shadow-soft"
-                    >
-                      <img
-                        src={getAssetPath(src)}
-                        alt={selectedMemory.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
+                <div className="my-4 rounded-2xl overflow-hidden glass shadow-soft">
+                  <img
+                    src={getAssetPath(selectedMemory.photos[0])}
+                    alt={selectedMemory.title}
+                    className="w-full h-auto object-cover max-h-80"
+                  />
                 </div>
               )}
 
               {selectedMemory.location && (
                 <div className="text-xs text-sukuun-text-light pt-4 border-t border-sukuun-gray/40 flex items-center justify-between">
                   <span>📍 {selectedMemory.location}</span>
-                  <span className="italic">Preserved with ♡</span>
+                  <span className="italic">Preserved for Myra ji ♡</span>
                 </div>
               )}
             </motion.div>
