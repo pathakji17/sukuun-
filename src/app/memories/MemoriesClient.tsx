@@ -21,6 +21,18 @@ export interface MemoryItem {
 
 const initialMemories: MemoryItem[] = [
   {
+    id: 'mem-first-call',
+    title: 'Our First Call 📞',
+    date: 'Late Night Memory',
+    chapter: 'Midnight Conversations',
+    mood: 'romantic',
+    description: 'Our first call was at 11:07 PM to 11:09 PM...',
+    story: `Our first call was at 11:07 PM to 11:09 PM... 2 mins.\n\nThen again when we started, it went from 11:33 PM to 2:06 AM... for 93 mins! 💖\n\nThen again at early morning, a sweet little call at 5:32 AM to 5:35 AM... ☀️`,
+    photos: ['/images/notification-11june.jpg'],
+    location: 'Midnight Conversations',
+    favorite: true,
+  },
+  {
     id: 'mem-magic-notification',
     title: 'The Magic Notification ✨',
     date: 'June 11 · 1:42 PM',
