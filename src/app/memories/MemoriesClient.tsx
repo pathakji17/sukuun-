@@ -206,7 +206,7 @@ export default function MemoriesClient() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ delay: i * 0.08, duration: 0.5 }}
                   onClick={() => setSelectedMemory(mem)}
-                  className="glass-strong rounded-3xl p-5 sm:p-6 shadow-soft hover:shadow-lg cursor-pointer transition-all duration-300 group border border-sukuun-rose/30"
+                  className="glass-strong rounded-3xl p-5 sm:p-6 shadow-soft hover:shadow-lg cursor-pointer transition-all duration-300 group border border-sukuun-rose/30 relative overflow-hidden"
                 >
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <div className="flex items-center gap-2 flex-wrap">
@@ -241,21 +241,26 @@ export default function MemoriesClient() {
                     {mem.title}
                   </h3>
 
-                  {/* 1. PHOTO ON TOP IN CARD */}
-                  {mem.photos && mem.photos.length > 0 && (
-                    <div className="my-3 rounded-2xl overflow-hidden glass shadow-soft max-w-xs border border-sukuun-rose/30">
-                      <img
-                        src={getAssetPath(mem.photos[0])}
-                        alt={mem.title}
-                        className="w-full h-auto object-cover max-h-72 group-hover:scale-102 transition-transform duration-500"
-                      />
+                  {/* Sealed Curious Memory Teaser Box (Text hidden until opened!) */}
+                  <div className="my-3 p-4 rounded-2xl bg-gradient-to-r from-sukuun-rose/30 via-sukuun-pink/30 to-sukuun-lavender/30 border border-sukuun-pink/40 flex items-center justify-between group-hover:border-sukuun-rose-deep transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-white/70 backdrop-blur flex items-center justify-center text-sm shadow-sm">
+                        🔒
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-sukuun-text font-[family-name:var(--font-crimson)]">
+                          Sealed Romantic Memory
+                        </p>
+                        <p className="text-[11px] text-sukuun-text-light">
+                          Tap to unlock & reveal live story ♡
+                        </p>
+                      </div>
                     </div>
-                  )}
 
-                  {/* 2. TEXT AT BOTTOM */}
-                  <p className="text-sm font-[family-name:var(--font-crimson)] text-sukuun-text leading-relaxed font-medium">
-                    {mem.story}
-                  </p>
+                    <span className="text-xs text-sukuun-rose-deep font-semibold group-hover:translate-x-1 transition-transform">
+                      Open ✨
+                    </span>
+                  </div>
                 </motion.div>
               ))}
             </AnimatePresence>
