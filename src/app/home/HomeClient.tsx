@@ -4,17 +4,18 @@ import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Navigation from '@/components/ui/Navigation';
+import { getAssetPath } from '@/lib/basePath';
 
 const MYRA_BIRTHDAY_MONTH = 9; // October (0-indexed)
 const MYRA_BIRTHDAY_DAY = 5;
 const MYRA_BIRTHDAY_HOUR = 5; // 5 AM
 const MYRA_NAME = 'Myra ji';
 
-const samplePhotos = [
-  '/images/WhatsApp Image 2026-07-14 at 12.49.04 AM.jpeg',
-  '/images/WhatsApp Image 2026-07-13 at 9.29.31 PM.jpeg',
-  '/images/WhatsApp Image 2026-07-13 at 9.29.32 PM.jpeg',
-  '/images/WhatsApp Image 2026-07-13 at 9.29.32 PM (1).jpeg',
+const rawSamplePhotos = [
+  '/images/photo-1.jpeg',
+  '/images/photo-2.jpeg',
+  '/images/photo-3.jpeg',
+  '/images/photo-4.jpeg',
 ];
 
 function getNextBirthday(): Date {
@@ -119,6 +120,7 @@ export default function HomeClient() {
   const [countdown, setCountdown] = useState(getTimeUntil(getNextBirthday()));
   const nextBirthday = useMemo(() => getNextBirthday(), []);
   const greeting = useMemo(() => getGreeting(), []);
+  const samplePhotos = useMemo(() => rawSamplePhotos.map((src) => getAssetPath(src)), []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -199,7 +201,6 @@ export default function HomeClient() {
           </motion.p>
         </motion.div>
 
-        {/* Photo Memory Carousel Banner */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -234,7 +235,6 @@ export default function HomeClient() {
           </Link>
         </motion.div>
 
-        {/* Birthday Countdown Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -285,7 +285,6 @@ export default function HomeClient() {
           </div>
         </motion.div>
 
-        {/* Feature Cards Grid */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4">
           {features.map((feature, i) => (
             <FeatureCard

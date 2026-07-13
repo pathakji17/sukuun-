@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '@/components/ui/Navigation';
+import { getAssetPath } from '@/lib/basePath';
 
 interface MediaItem {
   id: string;
@@ -11,14 +12,13 @@ interface MediaItem {
   title: string;
   date: string;
   caption?: string;
-  aspect?: string;
 }
 
-const mediaData: MediaItem[] = [
+const rawMediaData: MediaItem[] = [
   {
     id: 'img-1',
     type: 'image',
-    src: '/images/WhatsApp Image 2026-07-14 at 12.49.04 AM.jpeg',
+    src: '/images/photo-1.jpeg',
     title: 'Myra ji ♡',
     date: 'July 14, 2026',
     caption: 'A beautiful moment captured forever.',
@@ -26,7 +26,7 @@ const mediaData: MediaItem[] = [
   {
     id: 'img-2',
     type: 'image',
-    src: '/images/WhatsApp Image 2026-07-13 at 9.29.31 PM.jpeg',
+    src: '/images/photo-2.jpeg',
     title: 'Sweet Memories',
     date: 'July 13, 2026',
     caption: 'Every smile of yours brightens my day.',
@@ -34,7 +34,7 @@ const mediaData: MediaItem[] = [
   {
     id: 'img-3',
     type: 'image',
-    src: '/images/WhatsApp Image 2026-07-13 at 9.29.32 PM.jpeg',
+    src: '/images/photo-3.jpeg',
     title: 'Precious Smile',
     date: 'July 13, 2026',
     caption: 'Holding onto this picture with all my heart.',
@@ -42,7 +42,7 @@ const mediaData: MediaItem[] = [
   {
     id: 'img-4',
     type: 'image',
-    src: '/images/WhatsApp Image 2026-07-13 at 9.29.32 PM (1).jpeg',
+    src: '/images/photo-4.jpeg',
     title: 'Warm Expressions',
     date: 'July 13, 2026',
     caption: 'Moments like these make everything peaceful.',
@@ -50,7 +50,7 @@ const mediaData: MediaItem[] = [
   {
     id: 'img-5',
     type: 'image',
-    src: '/images/WhatsApp Image 2026-07-13 at 9.29.32 PM (2).jpeg',
+    src: '/images/photo-5.jpeg',
     title: 'Cherished Glance',
     date: 'July 13, 2026',
     caption: 'My favorite person in the world.',
@@ -58,7 +58,7 @@ const mediaData: MediaItem[] = [
   {
     id: 'img-6',
     type: 'image',
-    src: '/images/WhatsApp Image 2026-07-13 at 9.29.33 PM.jpeg',
+    src: '/images/photo-6.jpeg',
     title: 'Pure Grace',
     date: 'July 13, 2026',
     caption: 'So full of elegance and warmth.',
@@ -66,7 +66,7 @@ const mediaData: MediaItem[] = [
   {
     id: 'img-7',
     type: 'image',
-    src: '/images/WhatsApp Image 2026-07-13 at 9.29.33 PM (1).jpeg',
+    src: '/images/photo-7.jpeg',
     title: 'Golden Memory',
     date: 'July 13, 2026',
     caption: 'Always in my thoughts, always in my heart.',
@@ -74,7 +74,7 @@ const mediaData: MediaItem[] = [
   {
     id: 'vid-1',
     type: 'video',
-    src: '/videos/WhatsApp Video 2026-07-13 at 11.25.14 PM.mp4',
+    src: '/videos/video-1.mp4',
     title: 'Special Memory Video 1',
     date: 'July 13, 2026',
     caption: 'Watching this video brings a smile to my face.',
@@ -82,7 +82,7 @@ const mediaData: MediaItem[] = [
   {
     id: 'vid-2',
     type: 'video',
-    src: '/videos/WhatsApp Video 2026-07-13 at 11.25.29 PM.mp4',
+    src: '/videos/video-2.mp4',
     title: 'Special Memory Video 2',
     date: 'July 13, 2026',
     caption: 'Moments in motion ♡',
@@ -93,6 +93,11 @@ export default function GalleryClient() {
   const [filter, setFilter] = useState<'all' | 'image' | 'video'>('all');
   const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null);
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
+
+  const mediaData = rawMediaData.map((item) => ({
+    ...item,
+    src: getAssetPath(item.src),
+  }));
 
   const filteredMedia = mediaData.filter((item) => {
     if (filter === 'all') return true;
@@ -106,12 +111,10 @@ export default function GalleryClient() {
 
   return (
     <div className="min-h-dvh pb-28 relative overflow-hidden bg-sukuun-cream">
-      {/* Background Orbs */}
       <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-sukuun-rose/20 blur-[100px] -translate-y-1/3 translate-x-1/3" />
       <div className="absolute bottom-[20%] left-0 w-[350px] h-[350px] rounded-full bg-sukuun-lavender/20 blur-[90px] -translate-x-1/3" />
 
       <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14">
-        {/* Page Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -132,7 +135,6 @@ export default function GalleryClient() {
           </p>
         </motion.div>
 
-        {/* Filter Pills */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -158,7 +160,6 @@ export default function GalleryClient() {
           })}
         </motion.div>
 
-        {/* Media Grid */}
         <motion.div
           layout
           className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4"
@@ -198,7 +199,6 @@ export default function GalleryClient() {
                     </div>
                   )}
 
-                  {/* Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
                     <p className="text-white text-xs font-semibold font-[family-name:var(--font-crimson)]">
                       {item.title}
@@ -206,7 +206,6 @@ export default function GalleryClient() {
                     <p className="text-white/80 text-[10px]">{item.date}</p>
                   </div>
 
-                  {/* Favorite Button */}
                   <button
                     onClick={(e) => toggleFavorite(item.id, e)}
                     className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/70 backdrop-blur flex items-center justify-center text-sm transition-transform active:scale-95 shadow-sm"
@@ -220,7 +219,6 @@ export default function GalleryClient() {
         </motion.div>
       </div>
 
-      {/* Lightbox / Fullscreen Modal */}
       <AnimatePresence>
         {selectedMedia && (
           <motion.div
@@ -237,7 +235,6 @@ export default function GalleryClient() {
               onClick={(e) => e.stopPropagation()}
               className="relative max-w-lg w-full max-h-[85vh] glass-strong rounded-3xl overflow-hidden shadow-2xl flex flex-col"
             >
-              {/* Close Button */}
               <button
                 onClick={() => setSelectedMedia(null)}
                 className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition-colors text-lg"
@@ -245,7 +242,6 @@ export default function GalleryClient() {
                 ✕
               </button>
 
-              {/* Media Display */}
               <div className="flex-1 bg-black flex items-center justify-center max-h-[60vh] overflow-hidden">
                 {selectedMedia.type === 'image' ? (
                   <img
@@ -263,7 +259,6 @@ export default function GalleryClient() {
                 )}
               </div>
 
-              {/* Info Details */}
               <div className="p-5 bg-white/90">
                 <div className="flex items-center justify-between mb-1">
                   <h3 className="text-lg font-bold font-[family-name:var(--font-crimson)] text-sukuun-text">
