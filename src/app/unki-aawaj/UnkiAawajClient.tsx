@@ -16,9 +16,9 @@ export interface VoiceNote {
   favorite?: boolean;
 }
 
-const allAudioCount = 34;
+const allAudioCount = 17;
 
-// Generate 34 voice notes list
+// Generate 17 unique voice notes list
 const voiceNotesList: VoiceNote[] = [
   {
     id: 'vn-top-1',
@@ -105,7 +105,7 @@ export default function UnkiAawajClient() {
   return (
     <div className="min-h-dvh pb-28 relative overflow-hidden bg-sukuun-cream">
       {/* Background Ambient Orbs */}
-      <div className="absolute top-0 right-0 w-[450px] h-[450px] rounded-full bg-sukuun-rose/20 blur-[110px] -translate-y-1/3 translate-x-1/3" />
+      <div className="absolute top-0 right-0 w-[450px] h-[450px] rounded-full bg-sukuun-rose/20 blur-[110px] -translate-x-1/3 translate-x-1/3" />
       <div className="absolute bottom-[20%] left-0 w-[350px] h-[350px] rounded-full bg-sukuun-lavender/20 blur-[90px] -translate-x-1/3" />
 
       {/* Hidden Audio Tag */}
@@ -133,7 +133,7 @@ export default function UnkiAawajClient() {
             Unki Aawaj (उनकी आवाज़)
           </h1>
           <p className="text-sukuun-text-light text-sm mt-1">
-            34 Voice Recordings stored with love ♡
+            17 Unique Voice Recordings stored with love ♡
           </p>
         </motion.div>
 
