@@ -21,6 +21,18 @@ export interface MemoryItem {
 
 const initialMemories: MemoryItem[] = [
   {
+    id: 'mem-first-missed-call',
+    title: 'First Missed Call 📞🫠',
+    date: 'June 15 · 3:58 PM',
+    chapter: 'Sweet Missed Moments',
+    mood: 'nostalgic',
+    description: 'The first time I missed her valuable call at 3:58 PM...',
+    story: `The first time I missed her valuable call at 3:58 PM... 🫠\n\n"Sorry dekh nahi paya"\n\nThen we talked from 4:23 PM to 5:42 PM (1 hour 19 mins) ♡`,
+    photos: ['/images/missed-call-jun15.jpg'],
+    location: 'June 15',
+    favorite: true,
+  },
+  {
     id: 'mem-first-call',
     title: 'Our First Call 📞',
     date: 'Late Night Memory',
