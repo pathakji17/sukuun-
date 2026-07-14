@@ -167,51 +167,59 @@ export default function HomeClient() {
       <div className="absolute top-[40%] right-[20%] w-[300px] h-[300px] rounded-full bg-sukuun-pink/15 blur-[80px]" />
 
       <div className="relative z-10 max-w-lg mx-auto px-5 pt-10 sm:pt-14">
-        {/* Top Greeting & Premium Portrait Hero Card */}
+        {/* Greeting & Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-8 text-center flex flex-col items-center"
+          className="mb-2"
         >
-          <p className="text-sukuun-text-light text-xs uppercase tracking-widest font-semibold mb-4">
+          <p className="text-sukuun-text-light text-xs uppercase tracking-widest font-semibold">
             {greeting},
           </p>
+        </motion.div>
 
-          {/* Featured Portrait Photo Frame with Soft Romantic Glow */}
-          <div className="relative mb-6 group">
-            <div className="absolute -inset-1.5 bg-gradient-to-r from-sukuun-rose-deep via-sukuun-pink-deep to-sukuun-lavender-deep rounded-3xl blur-md opacity-75 group-hover:opacity-100 transition duration-500" />
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="relative w-44 h-56 sm:w-52 sm:h-64 rounded-3xl overflow-hidden glass-strong shadow-2xl border-2 border-white/60"
-            >
-              <img
-                src={getAssetPath('/images/myra-portrait.jpg')}
-                alt="Myra ji Portrait"
-                className="w-full h-full object-cover object-top"
-              />
-            </motion.div>
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text leading-tight tracking-tight">
+        {/* Myra ji Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="mb-4"
+        >
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text leading-tight tracking-tight">
             {MYRA_NAME}
           </h1>
+          <div className="h-1 w-20 bg-gradient-to-r from-sukuun-rose-deep via-sukuun-pink-deep to-sukuun-lavender-deep rounded-full mt-2 origin-left" />
+        </motion.div>
 
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 0.6, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="h-1 w-16 bg-gradient-to-r from-sukuun-rose-deep via-sukuun-pink-deep to-sukuun-lavender-deep rounded-full mt-3 origin-center"
-          />
+        {/* Circular Avatar Photo beneath Myra ji on Left side of screen */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="flex items-center gap-4 mb-8"
+        >
+          {/* Circular Photo Frame on Left */}
+          <div className="relative group flex-shrink-0">
+            <div className="absolute -inset-1 bg-gradient-to-r from-sukuun-rose-deep via-sukuun-pink-deep to-sukuun-lavender-deep rounded-full blur opacity-70 group-hover:opacity-100 transition duration-500" />
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden glass-strong border-2 border-white shadow-lg">
+              <img
+                src={getAssetPath('/images/myra-portrait.jpg')}
+                alt="Myra ji"
+                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="text-sukuun-text-light text-sm mt-3 tracking-wide italic font-[family-name:var(--font-crimson)]"
-          >
-            "Every moment with you is a memory worth keeping ♡"
-          </motion.p>
+          {/* Subtitle Quote on Right of Circle */}
+          <div>
+            <p className="text-sm font-[family-name:var(--font-crimson)] text-sukuun-text font-medium leading-snug italic">
+              "Every moment with you is a memory worth keeping ♡"
+            </p>
+            <p className="text-[11px] text-sukuun-text-light mt-1 font-semibold tracking-wide">
+              Welcome to Sukuun
+            </p>
+          </div>
         </motion.div>
 
         {/* Birthday Countdown Section */}
