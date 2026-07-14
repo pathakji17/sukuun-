@@ -21,7 +21,8 @@ export default function WordTypewriter({
   date,
   chapter,
 }: WordTypewriterProps) {
-  const words = text.split(/(\s+)/); // Preserves spaces and line breaks
+  // Split by space to get individual words
+  const words = text.split(' ');
   const [visibleWordCount, setVisibleWordCount] = useState(0);
 
   useEffect(() => {
@@ -81,20 +82,29 @@ export default function WordTypewriter({
         </motion.div>
       )}
 
-      {/* 2. AUTOMATIC WORD-BY-WORD SLOW LIVE REVEAL WITH SOFT PREMIUM BLUR */}
-      <div className="min-h-[100px] font-[family-name:var(--font-crimson)] text-lg sm:text-xl text-sukuun-text leading-relaxed whitespace-pre-line">
+      {/* 2. AUTOMATIC WORD-BY-WORD REVEAL WITH CRISP WORD SPACING & SOFT BLUR */}
+      <div className="min-h-[100px] font-[family-name:var(--font-crimson)] text-lg sm:text-xl text-sukuun-text leading-relaxed">
         {words.slice(0, visibleWordCount).map((word, index) => (
           <motion.span
             key={index}
             initial={{ opacity: 0, filter: 'blur(8px)', y: 4, scale: 0.95 }}
             animate={{ opacity: 1, filter: 'blur(0px)', y: 0, scale: 1 }}
             transition={{
-              duration: 0.45,
+              duration: 0.4,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="inline-block"
+            className="inline-block mr-[0.3em] mb-1"
           >
-            {word}
+            {word.includes('\n') ? (
+              word.split('\n').map((linePart, lineIdx, arr) => (
+                <span key={lineIdx}>
+                  {linePart}
+                  {lineIdx < arr.length - 1 && <span className="block h-3" />}
+                </span>
+              ))
+            ) : (
+              word
+            )}
           </motion.span>
         ))}
 
