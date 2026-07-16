@@ -39,9 +39,9 @@ const initialMemories: MemoryItem[] = [
     chapter: 'Butterflies & Smiles',
     mood: 'romantic',
     description: 'When I sent her the date reel & her reaction gave me butterflies...',
-    story: `Right after she agreed to meet this Diwali...\n\nI sent her the reel: "Usne date ke liye haa bol diya... and a boy searching every penny in his home!" 😂💰\n\nHer sweet reaction gave me butterflies all over... 🦋✨`,
-    photos: ['/images/diwali-meeting-1.jpg'],
-    location: 'July 16',
+    story: `Right after she agreed to meet this Diwali...\n\nI sent her the reel: "Usne date ke liye haa bol diya... and a boy searching every penny in his home!" 😂💰\n\nHer sweet blushing reaction (🤭) gave me butterflies all over... 🦋✨`,
+    photos: ['/images/date-reel-reaction.jpg'],
+    location: '8:15 PM',
     favorite: true,
   },
   {
