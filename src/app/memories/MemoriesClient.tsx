@@ -35,9 +35,9 @@ const initialMemories: MemoryItem[] = [
   },
   {
     id: 'mem-date-reel-reaction',
-    title: 'Usne Date Ke Liye Haan Bol Di 🤭✨',
+    title: 'The Date Reel & Butterflies 🦋✨',
     date: 'July 16 · Cute Reaction',
-    chapter: 'Cute Moments & Smiles',
+    chapter: 'Butterflies & Smiles',
     mood: 'romantic',
     description: 'When I sent her the date reel & her blushing reaction gave me butterflies...',
     story: `Right after she agreed to meet this Diwali...\n\nI sent her the reel: "Usne date ke liye haa bol diya... and a boy searching every penny in his home!" 😂💰\n\nHer sweet blushing reaction (🤭) gave me butterflies all over... 🦋✨`,
