@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { getAssetPath } from '@/lib/basePath';
 
@@ -25,27 +25,47 @@ export default function WordTypewriter({
   date,
   chapter,
 }: WordTypewriterProps) {
-  // Split by space to get individual words
-  const words = text.split(' ');
-  const [visibleWordCount, setVisibleWordCount] = useState(0);
+  // Robust Tokenizer: Splits text cleanly into word tokens & structural line break tokens
+  const tokens = useMemo(() => {
+    const normalized = text.replace(/\r\n/g, '\n');
+    const lines = normalized.split('\n');
+
+    const result: Array<{ id: number; type: 'word' | 'break'; value: string }> = [];
+    let counter = 0;
+
+    lines.forEach((line, lineIdx) => {
+      if (lineIdx > 0) {
+        result.push({ id: counter++, type: 'break', value: '\n' });
+      }
+      const lineWords = line.split(' ');
+      lineWords.forEach((word, wIdx) => {
+        if (word === '' && lineWords.length > 1 && wIdx > 0) return;
+        result.push({ id: counter++, type: 'word', value: word });
+      });
+    });
+
+    return result;
+  }, [text]);
+
+  const [visibleTokenCount, setVisibleTokenCount] = useState(0);
 
   const photosList = images && images.length > 0 ? images : imageSrc ? [imageSrc] : [];
 
   useEffect(() => {
-    setVisibleWordCount(0);
+    setVisibleTokenCount(0);
     let count = 0;
 
     const timer = setInterval(() => {
-      if (count < words.length) {
+      if (count < tokens.length) {
         count++;
-        setVisibleWordCount(count);
+        setVisibleTokenCount(count);
       } else {
         clearInterval(timer);
       }
     }, wordDelay);
 
     return () => clearInterval(timer);
-  }, [text, wordDelay, words.length]);
+  }, [text, wordDelay, tokens.length]);
 
   return (
     <div className="glass-strong rounded-3xl p-6 sm:p-8 shadow-soft relative overflow-hidden border border-sukuun-rose/30 my-4">
@@ -114,37 +134,30 @@ export default function WordTypewriter({
         </motion.div>
       )}
 
-      {/* 2. AUTOMATIC WORD-BY-WORD REVEAL WITH HARD GUARANTEED WORD SPACING */}
-      <div className="min-h-[100px] font-[family-name:var(--font-crimson)] text-lg sm:text-xl text-sukuun-text leading-relaxed whitespace-pre-wrap">
-        {words.slice(0, visibleWordCount).map((word, index) => (
-          <motion.span
-            key={index}
-            initial={{ opacity: 0, filter: 'blur(8px)', y: 4, scale: 0.95 }}
-            animate={{ opacity: 1, filter: 'blur(0px)', y: 0, scale: 1 }}
-            transition={{
-              duration: 0.4,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="inline-block mb-1"
-          >
-            {word.includes('\n') ? (
-              word.split('\n').map((linePart, lineIdx, arr) => (
-                <span key={lineIdx}>
-                  {linePart}
-                  {lineIdx < arr.length - 1 ? (
-                    <span className="block h-3" />
-                  ) : (
-                    ' '
-                  )}
-                </span>
-              ))
-            ) : (
-              word + ' '
-            )}
-          </motion.span>
-        ))}
+      {/* 2. PERFECT WORD-BY-WORD REVEAL WITH SEPARATED LINE BREAKS & CRISP SPACING */}
+      <div className="min-h-[100px] font-[family-name:var(--font-crimson)] text-lg sm:text-xl text-sukuun-text leading-relaxed flex flex-wrap items-baseline">
+        {tokens.slice(0, visibleTokenCount).map((token) => {
+          if (token.type === 'break') {
+            return <div key={token.id} className="w-full h-2 flex-shrink-0" />;
+          }
 
-        {visibleWordCount < words.length && (
+          return (
+            <motion.span
+              key={token.id}
+              initial={{ opacity: 0, filter: 'blur(8px)', y: 4, scale: 0.95 }}
+              animate={{ opacity: 1, filter: 'blur(0px)', y: 0, scale: 1 }}
+              transition={{
+                duration: 0.35,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="inline-block mr-[0.35em] mb-1"
+            >
+              {token.value}
+            </motion.span>
+          );
+        })}
+
+        {visibleTokenCount < tokens.length && (
           <motion.span
             animate={{ opacity: [1, 0.2, 1] }}
             transition={{ duration: 0.6, repeat: Infinity }}
