@@ -210,6 +210,7 @@ export default function StoriesClient() {
                     { date: 'First Call · 13 June', note: '11:07 PM Start', duration: '92 mins total', tag: 'Special First Call 💖' },
                     { date: '14 June', note: 'Late Night Talk', duration: '54 mins total', tag: 'Sweet Conversations 🌙' },
                     { date: '15 June', note: 'First Time "Motku"', duration: '73 mins total', tag: 'Unforgettable Memories ✨' },
+                    { date: '15 June (Evening)', note: '7:30 PM to 8:04 PM', duration: '34 mins total', tag: 'Evening Talk 🌙' },
                     { date: '16 June', note: 'Deep Talks', duration: '35 mins total', tag: 'Comfort & Peace 🕊️' },
                     { date: '24 June', note: 'Precious Moments', duration: '43 mins total', tag: 'Endless Smiles 😊' },
                     { date: '26 June', note: 'Midnight Call', duration: '27 mins total', tag: 'Heartfelt Words ♡' },
