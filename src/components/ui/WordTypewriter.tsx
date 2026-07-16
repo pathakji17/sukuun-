@@ -114,8 +114,8 @@ export default function WordTypewriter({
         </motion.div>
       )}
 
-      {/* 2. AUTOMATIC WORD-BY-WORD REVEAL WITH CRISP WORD SPACING & SOFT BLUR */}
-      <div className="min-h-[100px] font-[family-name:var(--font-crimson)] text-lg sm:text-xl text-sukuun-text leading-relaxed">
+      {/* 2. AUTOMATIC WORD-BY-WORD REVEAL WITH HARD GUARANTEED WORD SPACING */}
+      <div className="min-h-[100px] font-[family-name:var(--font-crimson)] text-lg sm:text-xl text-sukuun-text leading-relaxed whitespace-pre-wrap">
         {words.slice(0, visibleWordCount).map((word, index) => (
           <motion.span
             key={index}
@@ -125,17 +125,21 @@ export default function WordTypewriter({
               duration: 0.4,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="inline-block mr-[0.3em] mb-1"
+            className="inline-block mb-1"
           >
             {word.includes('\n') ? (
               word.split('\n').map((linePart, lineIdx, arr) => (
                 <span key={lineIdx}>
                   {linePart}
-                  {lineIdx < arr.length - 1 && <span className="block h-3" />}
+                  {lineIdx < arr.length - 1 ? (
+                    <span className="block h-3" />
+                  ) : (
+                    ' '
+                  )}
                 </span>
               ))
             ) : (
-              word
+              word + ' '
             )}
           </motion.span>
         ))}
