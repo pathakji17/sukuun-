@@ -134,7 +134,7 @@ export default function WordTypewriter({
         </motion.div>
       )}
 
-      {/* 2. PERFECT WORD-BY-WORD REVEAL WITH SEPARATED LINE BREAKS & CRISP SPACING */}
+      {/* 2. PERFECT WORD-BY-WORD REVEAL WITH GUARANTEED NON-BREAKING SPACES (\u00A0) */}
       <div className="min-h-[100px] font-[family-name:var(--font-crimson)] text-lg sm:text-xl text-sukuun-text leading-relaxed flex flex-wrap items-baseline">
         {tokens.slice(0, visibleTokenCount).map((token) => {
           if (token.type === 'break') {
@@ -150,9 +150,9 @@ export default function WordTypewriter({
                 duration: 0.35,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="inline-block mr-[0.35em] mb-1"
+              className="inline-block mb-1"
             >
-              {token.value}
+              {token.value}{'\u00A0'}
             </motion.span>
           );
         })}
