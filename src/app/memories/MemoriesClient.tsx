@@ -15,6 +15,7 @@ export interface MemoryItem {
   description: string;
   story: string;
   photos?: string[];
+  videoSrc?: string;
   location?: string;
   favorite?: boolean;
 }
@@ -34,12 +35,13 @@ const initialMemories: MemoryItem[] = [
   },
   {
     id: 'mem-date-reel-reaction',
-    title: 'The Date Reel & Butterflies 🦋✨',
+    title: 'She Said Yes to Our Date 🦋✨',
     date: 'July 16 · Cute Reaction',
     chapter: 'Butterflies & Smiles',
     mood: 'romantic',
-    description: 'When I sent her the date reel & her reaction gave me butterflies...',
+    description: 'When I sent her the date reel & her blushing reaction gave me butterflies...',
     story: `Right after she agreed to meet this Diwali...\n\nI sent her the reel: "Usne date ke liye haa bol diya... and a boy searching every penny in his home!" 😂💰\n\nHer sweet blushing reaction (🤭) gave me butterflies all over... 🦋✨`,
+    videoSrc: '/videos/insta.reel.mp4',
     photos: ['/images/date-reel-reaction.jpg'],
     location: '8:15 PM',
     favorite: true,
@@ -289,8 +291,25 @@ export default function MemoriesClient() {
                     {mem.title}
                   </h3>
 
-                  {/* Plain, Clean Photo Thumbnail & Story Preview */}
-                  {mem.photos && mem.photos.length > 0 && (
+                  {/* Video Thumbnail Indicator */}
+                  {mem.videoSrc && (
+                    <div className="my-3 rounded-2xl overflow-hidden glass shadow-soft border border-sukuun-rose/30 max-w-xs relative group">
+                      <video
+                        src={getAssetPath(mem.videoSrc)}
+                        muted
+                        playsInline
+                        className="w-full h-auto object-cover max-h-56"
+                      />
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full bg-white/80 text-sukuun-rose-deep flex items-center justify-center font-bold text-lg shadow-lg">
+                          ▶
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Photo Thumbnails */}
+                  {!mem.videoSrc && mem.photos && mem.photos.length > 0 && (
                     <div className={`my-3 grid ${mem.photos.length > 1 ? 'grid-cols-2 gap-2 max-w-sm' : 'grid-cols-1 max-w-xs'}`}>
                       {mem.photos.map((ph, phIdx) => (
                         <div
@@ -354,6 +373,7 @@ export default function MemoriesClient() {
                 date={selectedMemory.date}
                 chapter={selectedMemory.chapter}
                 images={selectedMemory.photos}
+                videoSrc={selectedMemory.videoSrc}
                 text={selectedMemory.story}
                 wordDelay={140}
               />

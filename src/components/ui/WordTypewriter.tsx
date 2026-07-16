@@ -8,6 +8,7 @@ interface WordTypewriterProps {
   text: string;
   imageSrc?: string;
   images?: string[];
+  videoSrc?: string;
   wordDelay?: number; // ms per word
   title?: string;
   date?: string;
@@ -18,6 +19,7 @@ export default function WordTypewriter({
   text,
   imageSrc,
   images,
+  videoSrc,
   wordDelay = 140, // Elegant slow premium pacing
   title,
   date,
@@ -70,7 +72,26 @@ export default function WordTypewriter({
         </div>
       )}
 
-      {/* 1. PHOTOS ON TOP */}
+      {/* 1. MEDIA ON TOP (VIDEO & PHOTOS) */}
+      {videoSrc && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7 }}
+          className="mb-5 rounded-2xl overflow-hidden glass shadow-soft max-w-xs mx-auto border border-sukuun-rose/30"
+        >
+          <video
+            src={getAssetPath(videoSrc)}
+            controls
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-auto max-h-80 object-cover"
+          />
+        </motion.div>
+      )}
+
       {photosList.length > 0 && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
