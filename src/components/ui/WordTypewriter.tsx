@@ -7,6 +7,7 @@ import { getAssetPath } from '@/lib/basePath';
 interface WordTypewriterProps {
   text: string;
   imageSrc?: string;
+  images?: string[];
   wordDelay?: number; // ms per word
   title?: string;
   date?: string;
@@ -16,6 +17,7 @@ interface WordTypewriterProps {
 export default function WordTypewriter({
   text,
   imageSrc,
+  images,
   wordDelay = 140, // Elegant slow premium pacing
   title,
   date,
@@ -24,6 +26,8 @@ export default function WordTypewriter({
   // Split by space to get individual words
   const words = text.split(' ');
   const [visibleWordCount, setVisibleWordCount] = useState(0);
+
+  const photosList = images && images.length > 0 ? images : imageSrc ? [imageSrc] : [];
 
   useEffect(() => {
     setVisibleWordCount(0);
@@ -66,19 +70,26 @@ export default function WordTypewriter({
         </div>
       )}
 
-      {/* 1. PHOTO ON TOP */}
-      {imageSrc && (
+      {/* 1. PHOTOS ON TOP */}
+      {photosList.length > 0 && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
-          className="mb-6 rounded-2xl overflow-hidden glass shadow-soft max-w-xs mx-auto border border-sukuun-rose/30"
+          className={`mb-6 grid ${photosList.length > 1 ? 'grid-cols-2 gap-3' : 'grid-cols-1 max-w-xs mx-auto'}`}
         >
-          <img
-            src={getAssetPath(imageSrc)}
-            alt={title || 'Memory Image'}
-            className="w-full h-auto object-cover max-h-80"
-          />
+          {photosList.map((img, idx) => (
+            <div
+              key={idx}
+              className="rounded-2xl overflow-hidden glass shadow-soft border border-sukuun-rose/30"
+            >
+              <img
+                src={getAssetPath(img)}
+                alt={title || 'Memory Image'}
+                className="w-full h-auto object-cover max-h-80"
+              />
+            </div>
+          ))}
         </motion.div>
       )}
 

@@ -21,6 +21,18 @@ export interface MemoryItem {
 
 const initialMemories: MemoryItem[] = [
   {
+    id: 'mem-diwali-meeting',
+    title: 'Diwali Meeting Promise 🪔✨',
+    date: 'July 16 · 12:11 AM',
+    chapter: 'Promises & Dreams',
+    mood: 'romantic',
+    description: 'When she accepted & admitted that yes, we will meet this Diwali...',
+    story: `A deeply special moment... when she accepted & admitted that yes, we will meet this Diwali! 🪔✨\n\n"Winter m... Diwali time aana to... Lete aana"\n\nOn July 16 at 12:11 AM... a beautiful promise for our meeting ♡`,
+    photos: ['/images/diwali-meeting-1.jpg', '/images/diwali-meeting-2.jpg'],
+    location: 'July 16 · 12:11 AM',
+    favorite: true,
+  },
+  {
     id: 'mem-first-missed-call',
     title: 'First Missed Call 📞🫠',
     date: 'June 15 · 3:58 PM',
@@ -267,12 +279,19 @@ export default function MemoriesClient() {
 
                   {/* Plain, Clean Photo Thumbnail & Story Preview */}
                   {mem.photos && mem.photos.length > 0 && (
-                    <div className="my-3 rounded-2xl overflow-hidden glass shadow-soft max-w-xs border border-sukuun-rose/30">
-                      <img
-                        src={getAssetPath(mem.photos[0])}
-                        alt={mem.title}
-                        className="w-full h-auto object-cover max-h-56 group-hover:scale-102 transition-transform duration-500"
-                      />
+                    <div className={`my-3 grid ${mem.photos.length > 1 ? 'grid-cols-2 gap-2 max-w-sm' : 'grid-cols-1 max-w-xs'}`}>
+                      {mem.photos.map((ph, phIdx) => (
+                        <div
+                          key={phIdx}
+                          className="rounded-2xl overflow-hidden glass shadow-soft border border-sukuun-rose/30"
+                        >
+                          <img
+                            src={getAssetPath(ph)}
+                            alt={mem.title}
+                            className="w-full h-auto object-cover max-h-56 group-hover:scale-102 transition-transform duration-500"
+                          />
+                        </div>
+                      ))}
                     </div>
                   )}
 
@@ -322,7 +341,7 @@ export default function MemoriesClient() {
                 title={selectedMemory.title}
                 date={selectedMemory.date}
                 chapter={selectedMemory.chapter}
-                imageSrc={selectedMemory.photos?.[0]}
+                images={selectedMemory.photos}
                 text={selectedMemory.story}
                 wordDelay={140}
               />
