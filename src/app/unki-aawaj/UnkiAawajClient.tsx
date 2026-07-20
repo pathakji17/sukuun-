@@ -17,7 +17,7 @@ export interface VoiceNote {
 }
 
 const voiceNotesList: VoiceNote[] = [
-  // 12 Curated Voice Recordings
+  // 1. Position 1: Best Thing ♡
   {
     id: 'vn-bestthing',
     title: 'Best Thing ♡',
@@ -30,6 +30,31 @@ const voiceNotesList: VoiceNote[] = [
     ],
     favorite: true,
   },
+  // 2. Position 2: Recording #1
+  {
+    id: 'vn-top-1',
+    title: 'Recording #1 🎙️',
+    date: 'Special Memory',
+    duration: '0:27',
+    src: '/audio/audio-1.mp3',
+    note: 'Shoutout Special Memory ♡',
+    lines: [
+      "I'm a big fan of her... ♡",
+      "Mujhe shoutout de do vermaaa jiiii... 🎙️✨",
+    ],
+    favorite: true,
+  },
+  // 3. Position 3: Her Special Song 🎵
+  {
+    id: 'vn-song',
+    title: 'Her Special Song 🎵',
+    date: 'Singing Voice Note',
+    src: '/audio/vn-song.mp4',
+    note: 'Singing with sweetness ♡',
+    favorite: true,
+  },
+
+  // Remaining Curated Voice Notes
   {
     id: 'vn-itnapyaari',
     title: 'Itna Pyaari Kaise Ho Sakta Koi... 💖',
@@ -71,14 +96,6 @@ const voiceNotesList: VoiceNote[] = [
     favorite: true,
   },
   {
-    id: 'vn-song',
-    title: 'Her Special Song 🎵',
-    date: 'Singing Voice Note',
-    src: '/audio/vn-song.mp4',
-    note: 'Singing with sweetness ♡',
-    favorite: true,
-  },
-  {
     id: 'vn-moment',
     title: 'A Precious Moment ✨',
     date: 'Heartfelt Memory',
@@ -115,9 +132,9 @@ const voiceNotesList: VoiceNote[] = [
     favorite: false,
   },
 
-  // Previous 17 Audio Recordings
-  ...Array.from({ length: 17 }, (_, i) => {
-    const num = i + 1;
+  // Remaining Previous Audio Recordings (#2 to #17)
+  ...Array.from({ length: 16 }, (_, i) => {
+    const num = i + 2;
     return {
       id: `vn-prev-${num}`,
       title: `Unki Aawaj Recording #${num} 🎵`,
