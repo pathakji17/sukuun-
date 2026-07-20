@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Navigation from '@/components/ui/Navigation';
 import { getAssetPath } from '@/lib/basePath';
@@ -117,6 +117,7 @@ export default function HomeClient() {
   // Audio state for front page popup player
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [audioProgress, setAudioProgress] = useState(0);
+  const [showAutoPopup, setShowAutoPopup] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -154,7 +155,7 @@ export default function HomeClient() {
       href: '/unki-aawaj',
       icon: '🎙️',
       title: 'Unki Aawaj',
-      description: '12 Voice notes & audio recordings',
+      description: 'Voice notes & audio recordings',
       gradient: 'bg-gradient-to-br from-sukuun-rose-deep to-sukuun-pink-deep',
     },
     {
@@ -194,6 +195,80 @@ export default function HomeClient() {
         onTimeUpdate={handleAudioTimeUpdate}
         onEnded={() => setIsPlayingAudio(false)}
       />
+
+      {/* Auto Welcome Popup Modal for Best Thing Voice Note */}
+      <AnimatePresence>
+        {showAutoPopup && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+          >
+            <motion.div
+              initial={{ scale: 0.85, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.85, y: 20 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="relative max-w-sm w-full glass-strong rounded-3xl p-6 sm:p-8 shadow-2xl text-center border border-sukuun-rose/40 overflow-hidden"
+            >
+              <button
+                onClick={() => {
+                  if (audioRef.current) audioRef.current.pause();
+                  setIsPlayingAudio(false);
+                  setShowAutoPopup(false);
+                }}
+                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50 transition-colors text-xs font-semibold"
+              >
+                ✕
+              </button>
+
+              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-sukuun-rose-deep via-sukuun-pink-deep to-sukuun-lavender-deep text-white flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg animate-pulse">
+                🎙️
+              </div>
+
+              <span className="text-[10px] font-bold uppercase tracking-widest text-sukuun-rose-deep bg-sukuun-rose/30 px-3 py-1 rounded-full">
+                Welcome to Sukuun 🌟
+              </span>
+
+              <h2 className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-crimson)] text-sukuun-text mt-3 mb-1">
+                Best Thing ♡
+              </h2>
+
+              <p className="text-xs text-sukuun-text-light italic font-[family-name:var(--font-crimson)] mb-6">
+                "A special voice recording saved just for you..."
+              </p>
+
+              {/* Glowing Play Button */}
+              <div className="flex flex-col items-center gap-4 mb-6">
+                <button
+                  onClick={togglePlayAudio}
+                  className="w-20 h-20 rounded-full bg-gradient-to-r from-sukuun-rose-deep via-sukuun-pink-deep to-sukuun-lavender-deep text-white flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition-all text-3xl ring-4 ring-sukuun-pink/40"
+                >
+                  {isPlayingAudio ? '⏸' : '▶'}
+                </button>
+
+                {/* Progress bar */}
+                <div className="w-full h-1.5 bg-sukuun-rose/30 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-sukuun-rose-deep transition-all duration-300"
+                    style={{ width: `${audioProgress}%` }}
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  setShowAutoPopup(false);
+                }}
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-sukuun-rose-deep to-sukuun-pink-deep text-white text-xs font-semibold tracking-wide shadow-md hover:shadow-lg transition-all"
+              >
+                Enter Sukuun ♡
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="relative z-10 max-w-lg mx-auto px-5 pt-10 sm:pt-14">
         {/* Greeting & Header */}
@@ -251,7 +326,7 @@ export default function HomeClient() {
           </div>
         </motion.div>
 
-        {/* Front Page Audio Popup Card: Best Thing ♡ */}
+        {/* Front Page Audio Card: Best Thing ♡ */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
