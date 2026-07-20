@@ -72,6 +72,14 @@ const rawMediaData: MediaItem[] = [
     caption: 'Always in my thoughts, always in my heart.',
   },
   {
+    id: 'img-8',
+    type: 'image',
+    src: '/images/photo-8.jpeg',
+    title: 'Sweet Moment ♡',
+    date: 'July 20, 2026',
+    caption: 'A precious capture shared with love.',
+  },
+  {
     id: 'vid-1',
     type: 'video',
     src: '/videos/video-1.mp4',
@@ -131,7 +139,7 @@ export default function GalleryClient() {
             Myra ji’s Gallery
           </h1>
           <p className="text-sukuun-text-light text-sm mt-1">
-            7 Photos & 2 Videos captured with warmth and love ♡
+            8 Photos & 2 Videos captured with warmth and love ♡
           </p>
         </motion.div>
 
@@ -142,7 +150,7 @@ export default function GalleryClient() {
           className="flex items-center gap-2 mb-6"
         >
           {(['all', 'image', 'video'] as const).map((type) => {
-            const label = type === 'all' ? 'All (9)' : type === 'image' ? 'Photos (7)' : 'Videos (2)';
+            const label = type === 'all' ? 'All (10)' : type === 'image' ? 'Photos (8)' : 'Videos (2)';
             const isActive = filter === type;
             return (
               <button
