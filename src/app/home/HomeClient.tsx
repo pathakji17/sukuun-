@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Navigation from '@/components/ui/Navigation';
@@ -114,12 +114,33 @@ export default function HomeClient() {
   const nextBirthday = useMemo(() => getNextBirthday(), []);
   const greeting = useMemo(() => getGreeting(), []);
 
+  // Audio state for front page popup player
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [audioProgress, setAudioProgress] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdown(getTimeUntil(nextBirthday));
     }, 1000);
     return () => clearInterval(interval);
   }, [nextBirthday]);
+
+  const togglePlayAudio = () => {
+    if (!audioRef.current) return;
+    if (isPlayingAudio) {
+      audioRef.current.pause();
+      setIsPlayingAudio(false);
+    } else {
+      audioRef.current.play().then(() => setIsPlayingAudio(true)).catch(() => setIsPlayingAudio(false));
+    }
+  };
+
+  const handleAudioTimeUpdate = () => {
+    if (audioRef.current && audioRef.current.duration) {
+      setAudioProgress((audioRef.current.currentTime / audioRef.current.duration) * 100);
+    }
+  };
 
   const features = [
     {
@@ -133,7 +154,7 @@ export default function HomeClient() {
       href: '/unki-aawaj',
       icon: '🎙️',
       title: 'Unki Aawaj',
-      description: 'Voice notes & audio recordings',
+      description: '12 Voice notes & audio recordings',
       gradient: 'bg-gradient-to-br from-sukuun-rose-deep to-sukuun-pink-deep',
     },
     {
@@ -166,6 +187,14 @@ export default function HomeClient() {
       <div className="absolute bottom-[30%] left-0 w-[400px] h-[400px] rounded-full bg-sukuun-lavender/20 blur-[100px] -translate-x-1/3" />
       <div className="absolute top-[40%] right-[20%] w-[300px] h-[300px] rounded-full bg-sukuun-pink/15 blur-[80px]" />
 
+      {/* Hidden Audio Tag for Best Thing Voice Note */}
+      <audio
+        ref={audioRef}
+        src={getAssetPath('/audio/vn-bestthing.mp4')}
+        onTimeUpdate={handleAudioTimeUpdate}
+        onEnded={() => setIsPlayingAudio(false)}
+      />
+
       <div className="relative z-10 max-w-lg mx-auto px-5 pt-10 sm:pt-14">
         {/* Greeting & Header */}
         <motion.div
@@ -197,7 +226,7 @@ export default function HomeClient() {
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex items-center gap-4 mb-8"
+          className="flex items-center gap-4 mb-6"
         >
           {/* Circular Photo Frame on Left */}
           <div className="relative group flex-shrink-0">
@@ -219,6 +248,52 @@ export default function HomeClient() {
             <p className="text-[11px] text-sukuun-text-light mt-1 font-semibold tracking-wide">
               Welcome to Sukuun
             </p>
+          </div>
+        </motion.div>
+
+        {/* Front Page Audio Popup Card: Best Thing ♡ */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.35, duration: 0.6 }}
+          className="mb-8 p-5 rounded-3xl bg-gradient-to-r from-sukuun-rose/30 via-sukuun-pink/30 to-sukuun-lavender/30 border border-sukuun-rose/40 shadow-soft relative overflow-hidden"
+        >
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <span className="text-sm">🌟</span>
+              <span className="text-[10px] uppercase font-bold tracking-widest text-sukuun-rose-deep bg-white/70 px-2.5 py-0.5 rounded-full">
+                Front Page Voice Note
+              </span>
+            </div>
+            <span className="text-[10px] text-sukuun-text-light font-semibold">
+              Tap to Play
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <h3 className="text-lg font-bold font-[family-name:var(--font-crimson)] text-sukuun-text">
+                Best Thing ♡
+              </h3>
+              <p className="text-xs text-sukuun-text-light italic">
+                "Her voice recording saved for Myra ji ✨"
+              </p>
+            </div>
+
+            <button
+              onClick={togglePlayAudio}
+              className="w-12 h-12 rounded-full bg-gradient-to-r from-sukuun-rose-deep to-sukuun-pink-deep text-white flex items-center justify-center shadow-md hover:shadow-lg active:scale-95 transition-all text-xl flex-shrink-0"
+            >
+              {isPlayingAudio ? '⏸' : '▶'}
+            </button>
+          </div>
+
+          {/* Simple Progress Bar */}
+          <div className="w-full h-1.5 bg-white/60 rounded-full mt-3 overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-sukuun-rose-deep to-sukuun-pink-deep transition-all duration-300"
+              style={{ width: `${audioProgress}%` }}
+            />
           </div>
         </motion.div>
 

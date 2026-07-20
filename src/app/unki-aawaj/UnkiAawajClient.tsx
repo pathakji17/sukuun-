@@ -16,33 +16,103 @@ export interface VoiceNote {
   favorite?: boolean;
 }
 
-const allAudioCount = 17;
-
-// Generate 17 unique voice notes list
 const voiceNotesList: VoiceNote[] = [
   {
-    id: 'vn-top-1',
-    title: 'Featured Voice Note 🎙️',
-    date: 'Special Recording',
-    duration: '0:27',
-    src: '/audio/audio-1.mp3',
-    note: 'Shoutout Special Memory ♡',
+    id: 'vn-bestthing',
+    title: 'Best Thing ♡',
+    date: 'Featured Recording 🌟',
+    src: '/audio/vn-bestthing.mp4',
+    note: 'Featured on Front Page Popup ✨',
     lines: [
-      "I'm a big fan of her... ♡",
-      "Mujhe shoutout de do vermaaa jiiii... 🎙️✨",
+      "The best thing ever... ♡",
+      "A precious memory of her voice ✨",
     ],
     favorite: true,
   },
-  ...Array.from({ length: allAudioCount - 1 }, (_, i) => {
-    const num = i + 2;
-    return {
-      id: `vn-${num}`,
-      title: `Unki Aawaj Recording #${num} 🎵`,
-      date: `Recording ${num}`,
-      src: `/audio/audio-${num}.mp3`,
-      favorite: false,
-    };
-  }),
+  {
+    id: 'vn-itnapyaari',
+    title: 'Itna Pyaari Kaise Ho Sakta Koi... 💖',
+    date: 'Special Voice Note',
+    src: '/audio/vn-itnapyaari.mp4',
+    note: 'Her sweetest words ♡',
+    favorite: true,
+  },
+  {
+    id: 'vn-bhojpuri',
+    title: 'Her Bhojpuri Voice 🌸',
+    date: 'Cute Recording',
+    src: '/audio/vn-bhojpuri.mp4',
+    note: 'Cutest tone & accent ✨',
+    favorite: true,
+  },
+  {
+    id: 'vn-gussa',
+    title: 'Sweet Gussa 😠💕',
+    date: 'Cute Reaction',
+    src: '/audio/vn-gussa.mp4',
+    note: 'When she gets adorably angry ♡',
+    favorite: true,
+  },
+  {
+    id: 'vn-kyabolu',
+    title: 'Kya Bolu Bolo... 🗣️💬',
+    date: 'Sweet Chatter',
+    src: '/audio/vn-kyabolu.mp4',
+    note: 'Heartwarming chatter ✨',
+    favorite: true,
+  },
+  {
+    id: 'vn-bdaywants',
+    title: 'Her Birthday Wants 🎂✨',
+    date: 'Special Wish',
+    src: '/audio/vn-bdaywants.mp4',
+    note: 'Special Birthday wishes & thoughts ♡',
+    favorite: true,
+  },
+  {
+    id: 'vn-song',
+    title: 'Her Special Song 🎵',
+    date: 'Singing Voice Note',
+    src: '/audio/vn-song.mp4',
+    note: 'Singing with sweetness ♡',
+    favorite: true,
+  },
+  {
+    id: 'vn-moment',
+    title: 'A Precious Moment ✨',
+    date: 'Heartfelt Memory',
+    src: '/audio/vn-moment.mp4',
+    note: 'Unforgettable memory ♡',
+    favorite: true,
+  },
+  {
+    id: 'vn-1033',
+    title: 'Unki Aawaj Recording #1033 🎙️',
+    date: 'Voice Note',
+    src: '/audio/vn-1033.mp4',
+    favorite: false,
+  },
+  {
+    id: 'vn-1038',
+    title: 'Unki Aawaj Recording #1038 🎙️',
+    date: 'Voice Note',
+    src: '/audio/vn-1038.mp4',
+    favorite: false,
+  },
+  {
+    id: 'vn-1545',
+    title: 'Unki Aawaj Recording #1545 🎙️',
+    date: 'Voice Note',
+    src: '/audio/vn-1545.mp4',
+    favorite: false,
+  },
+  {
+    id: 'vn-1824',
+    title: 'Unki Aawaj Recording #1824 🎙️',
+    date: 'Voice Note',
+    src: '/audio/vn-1824.mp4',
+    favorite: false,
+  },
 ];
 
 export default function UnkiAawajClient() {
@@ -133,7 +203,7 @@ export default function UnkiAawajClient() {
             Unki Aawaj (उनकी आवाज़)
           </h1>
           <p className="text-sukuun-text-light text-sm mt-1">
-            17 Unique Voice Recordings stored with love ♡
+            12 Special Voice Recordings stored with love ♡
           </p>
         </motion.div>
 
@@ -172,7 +242,7 @@ export default function UnkiAawajClient() {
                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                     transition={{
                       duration: 0.6,
-                      delay: idx * 0.35, // Line 1 pre-written, Line 2 starts 0.35s after
+                      delay: idx * 0.35,
                       ease: [0.22, 1, 0.36, 1],
                     }}
                     className="font-[family-name:var(--font-crimson)] text-base sm:text-lg text-sukuun-text font-semibold tracking-wide"
