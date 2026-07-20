@@ -17,6 +17,7 @@ export interface VoiceNote {
 }
 
 const voiceNotesList: VoiceNote[] = [
+  // 12 Curated Voice Recordings
   {
     id: 'vn-bestthing',
     title: 'Best Thing ♡',
@@ -113,6 +114,18 @@ const voiceNotesList: VoiceNote[] = [
     src: '/audio/vn-1824.mp4',
     favorite: false,
   },
+
+  // Previous 17 Audio Recordings
+  ...Array.from({ length: 17 }, (_, i) => {
+    const num = i + 1;
+    return {
+      id: `vn-prev-${num}`,
+      title: `Unki Aawaj Recording #${num} 🎵`,
+      date: `Recording ${num}`,
+      src: `/audio/audio-${num}.mp3`,
+      favorite: false,
+    };
+  }),
 ];
 
 export default function UnkiAawajClient() {
@@ -203,7 +216,7 @@ export default function UnkiAawajClient() {
             Unki Aawaj (उनकी आवाज़)
           </h1>
           <p className="text-sukuun-text-light text-sm mt-1">
-            12 Special Voice Recordings stored with love ♡
+            29 Voice Recordings stored with love ♡
           </p>
         </motion.div>
 
