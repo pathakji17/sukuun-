@@ -22,6 +22,18 @@ export interface MemoryItem {
 
 const initialMemories: MemoryItem[] = [
   {
+    id: 'mem-verma-ji-handwritten',
+    title: 'Verma ji... ✍️💖',
+    date: 'July 21 · Handwritten',
+    chapter: 'Endless Devotion',
+    mood: 'romantic',
+    description: 'Full page handwritten with "Verma ji" over and over again with endless love...',
+    story: `A deeply special page filled entirely by hand...\n\nEvery single line, every single word...\n\n"Verma ji Verma ji Verma ji..." written over and over again with endless devotion and love. ✍️✨\n\nWords written from the deepest corner of the heart ♡`,
+    photos: ['/images/verma-ji-handwritten.jpg'],
+    location: 'Handwritten with Love',
+    favorite: true,
+  },
+  {
     id: 'mem-diwali-meeting',
     title: 'Diwali Meeting Promise 🪔✨',
     date: 'July 16 · 12:11 AM',

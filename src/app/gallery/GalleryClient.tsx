@@ -16,6 +16,14 @@ interface MediaItem {
 
 const rawMediaData: MediaItem[] = [
   {
+    id: 'img-9',
+    type: 'image',
+    src: '/images/photo-9.jpeg',
+    title: 'Verma ji... ✍️♡',
+    date: 'July 21, 2026',
+    caption: 'Full page handwritten with "Verma ji" over and over again with endless love...',
+  },
+  {
     id: 'img-1',
     type: 'image',
     src: '/images/photo-1.jpeg',
@@ -139,7 +147,7 @@ export default function GalleryClient() {
             Myra ji’s Gallery
           </h1>
           <p className="text-sukuun-text-light text-sm mt-1">
-            8 Photos & 2 Videos captured with warmth and love ♡
+            9 Photos & 2 Videos captured with warmth and love ♡
           </p>
         </motion.div>
 
@@ -150,7 +158,7 @@ export default function GalleryClient() {
           className="flex items-center gap-2 mb-6"
         >
           {(['all', 'image', 'video'] as const).map((type) => {
-            const label = type === 'all' ? 'All (10)' : type === 'image' ? 'Photos (8)' : 'Videos (2)';
+            const label = type === 'all' ? 'All (11)' : type === 'image' ? 'Photos (9)' : 'Videos (2)';
             const isActive = filter === type;
             return (
               <button
