@@ -440,7 +440,7 @@ export default function HomeClient() {
           transition={{ delay: 1.2, duration: 0.8 }}
           className="text-center text-xs text-sukuun-gray-dark/50 mt-10 tracking-widest"
         >
-          SUKUUN · made with love ♡
+          SUKUUN · made with care ♡
         </motion.p>
       </div>
 

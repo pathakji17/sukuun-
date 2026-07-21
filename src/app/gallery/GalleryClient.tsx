@@ -21,7 +21,7 @@ const rawMediaData: MediaItem[] = [
     src: '/images/photo-9.jpeg',
     title: 'Verma ji... ✍️♡',
     date: 'July 21, 2026',
-    caption: 'Full page handwritten with "Verma ji" over and over again with endless love...',
+    caption: 'Full page handwritten with "Verma ji" over and over again with endless warmth...',
   },
   {
     id: 'img-1',
@@ -85,7 +85,7 @@ const rawMediaData: MediaItem[] = [
     src: '/images/photo-8.jpeg',
     title: 'Sweet Moment ♡',
     date: 'July 20, 2026',
-    caption: 'A precious capture shared with love.',
+    caption: 'A precious capture shared with care.',
   },
   {
     id: 'vid-1',
@@ -147,7 +147,7 @@ export default function GalleryClient() {
             Myra ji’s Gallery
           </h1>
           <p className="text-sukuun-text-light text-sm mt-1">
-            9 Photos & 2 Videos captured with warmth and love ♡
+            9 Photos & 2 Videos captured with warmth and care ♡
           </p>
         </motion.div>
 

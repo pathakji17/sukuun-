@@ -233,7 +233,7 @@ export default function UnkiAawajClient() {
             Unki Aawaj (उनकी आवाज़)
           </h1>
           <p className="text-sukuun-text-light text-sm mt-1">
-            29 Voice Recordings stored with love ♡
+            29 Voice Recordings stored with care ♡
           </p>
         </motion.div>
 
